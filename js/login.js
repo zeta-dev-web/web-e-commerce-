@@ -89,7 +89,7 @@ const loginUser = () => {
   return;
 } else {
     for (const user of users) {
-      if (user.email === email && user.pass === pass) { 
+      if (user.email === email && user.password === pass) { 
         if (user.admin) { //verifico si es admin secundario
           const alertHTML = `
     <div>
@@ -279,12 +279,17 @@ codeModal.show();
 }}
 
 // capturo el boton de cerrar del modal y redirecciono
-const close = document.getElementById("closeAndRedirect");
+// const close = document.getElementById("closeAndRedirect");
 
-// Agrega un evento de clic al botón
-close.addEventListener("click", () => {
-    location.replace("./login.html");
-});
+// // Agrega un evento de clic al botón
+// close.addEventListener("click", () => {
+//     location.replace("./login.html");
+// });
+
+console.log(users);
+
+console.log(user);
+
 
 // recuperacion de clave
 // Captura el modal del código de seguridad
