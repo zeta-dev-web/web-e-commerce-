@@ -102,7 +102,7 @@ const loginUser = () => {
   errorlogin.innerHTML = alertHTML;
   errorlogin.classList = "mt-2";
   errorlogin.role = "alert";
- updateAuth(admin.username, admin.email, admin.avatar, "secundario");
+ updateAuth(user.username, user.email, user.avatar, "secundario");
   // Limpiar el mensaje de alerta y redirigir después de 4 segundos
   setTimeout(() => {
     errorlogin.innerHTML = "";
@@ -124,7 +124,7 @@ const loginUser = () => {
   errorlogin.innerHTML = alertHTML;
   errorlogin.classList = "mt-2";
   errorlogin.role = "alert";
- updateAuth(admin.username, admin.email, admin.avatar, "false");
+ updateAuth(user.username, user.email, user.avatar, "false");
   // Limpiar el mensaje de alerta y redirigir después de 4 segundos
   setTimeout(() => {
     errorlogin.innerHTML = "";
@@ -268,6 +268,7 @@ const registrationCode = generateRandomCode(4); //genero el codigo de recuperaci
   regname.value = "";
   regemail.value = "";
   regpass.value = "";
+
   // Modifica el contenido del modal-body con el mensaje y el código
 const modalBody = modalSeg.querySelector(".modal-body");
 modalBody.innerHTML = `
@@ -277,19 +278,6 @@ modalBody.innerHTML = `
 // Muestra el modal
 codeModal.show();
 }}
-
-// capturo el boton de cerrar del modal y redirecciono
-// const close = document.getElementById("closeAndRedirect");
-
-// // Agrega un evento de clic al botón
-// close.addEventListener("click", () => {
-//     location.replace("./login.html");
-// });
-
-console.log(users);
-
-console.log(user);
-
 
 // recuperacion de clave
 // Captura el modal del código de seguridad
