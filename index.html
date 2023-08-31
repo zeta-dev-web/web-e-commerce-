@@ -72,7 +72,7 @@
                         </button>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-light m-2 d-none d-md-none d-lg-block">
+                        <button type="button" id="buttoncart" class="btn btn-light m-2 d-none d-md-none d-lg-block">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                         </button>
                     </div>
@@ -81,7 +81,6 @@
                         type="button" class="btn btn-light m-2 d-none d-md-none d-lg-block">
                             Cerrar sesion
                         </button>
-                    
                     <form class="d-flex" role="search">
                         <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" />
                         <button class="btn btn-outline-light" type="submit">
@@ -112,122 +111,16 @@
                 <!-- Las más buscadas  -->
                 <div class="col">
                     <div id="carousel" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner my-1">
-                            <div class="carousel-item active" data-bs-interval="10000">
-                                <div class="mini-carousel">
-                                    <img src="./assets/Las mas buscadas/asus-tuf-ryzen-7-rtx3050.webp"
-                                        class="d-block w-100" alt="Asus-TUF" />
-                                </div>
-                                <div class="card-body d-flex flex-column justify-content-between">
-                                    <div class="text-center px-5 my-2">
-                                        <h1 class="badge text-bg-primary fs-5">Las más buscadas</h1>
-                                        <p class="text-center">
-                                            Estas son las notebook mas buscadas por la gente, con la mejor calidad y
-                                            rendimiento.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="mt-auto text-center">
-                                    <a href="./pages/error404.html" class="btn btn-primary fs-5 mb-3">Comprar</a>
-                                </div>
-                            </div>
-                            <div class="carousel-item" data-bs-interval="10000">
-                                <div class="mini-carousel">
-                                    <img src="./assets/Las mas buscadas/hp-0000-layer-1.webp" class="d-block w-100"
-                                        alt="HP_Layer" />
-                                </div>
-                                <div class="card-body d-flex flex-column justify-content-between">
-                                    <div class="text-center px-5 my-2">
-                                        <h1 class="badge text-bg-primary fs-5">Las más buscadas</h1>
-                                        <p class="text-center">
-                                            Estas son las notebook mas buscadas por la gente, con la mejor calidad y
-                                            rendimiento.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="mt-auto text-center">
-                                    <a href="./pages/error404.html" class="btn btn-primary fs-5 mb-3">Comprar</a>
-                                </div>
-                            </div>
-                            <div class="carousel-item" data-bs-interval="10000">
-                                <div class="mini-carousel">
-                                    <img src="./assets/Las mas buscadas/notebook-asus-x515ea-i7.webp"
-                                        class="d-block w-100" alt="asus_x515ea" />
-                                </div>
-                                <div class="card-body d-flex flex-column justify-content-between">
-                                    <div class="text-center px-5 my-2">
-                                        <h1 class="badge text-bg-primary fs-5">Las más buscadas</h1>
-                                        <p class="text-center">
-                                            Estas son las notebook mas buscadas por la gente, con la mejor calidad y
-                                            rendimiento.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="mt-auto text-center">
-                                    <a href="./pages/error404.html" class="btn btn-primary fs-5 mb-3">Comprar</a>
-                                </div>
-                            </div>
+                        <div class="carousel-inner my-1 cr1 " data-bs-interval="5000">
+                           
                         </div>
                     </div>
                 </div>
                 <!-- Las más vendidas -->
                 <div class="col">
                     <div id="carousel" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner my-1">
-                            <div class="carousel-item active" data-bs-interval="10000">
-                                <div class="mini-carousel">
-                                    <img src="./assets/Las mas vendidas/asus-aspire-3.webp" class="d-block w-100"
-                                        alt="Asus Aspire" />
-                                </div>
-                                <div class="card-body d-flex flex-column justify-content-between">
-                                    <div class="text-center px-5 my-2">
-                                        <h1 class="badge text-bg-primary fs-5">Las más vendidas</h1>
-                                        <p class="text-center">
-                                            Estas son las notebook mas vendidas en el mercado, con los mejores
-                                            componentes.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="mt-auto text-center">
-                                    <a href="./pages/error404.html" class="btn btn-primary fs-5 mb-3">Comprar</a>
-                                </div>
-                            </div>
-                            <div class="carousel-item" data-bs-interval="10000">
-                                <div class="mini-carousel">
-                                    <img src="./assets/Las mas vendidas/msi-gf-63.webp" class="d-block w-100"
-                                        alt="HP-PAVILION" />
-                                </div>
-                                <div class="card-body d-flex flex-column justify-content-between">
-                                    <div class="text-center px-5 my-2">
-                                        <h1 class="badge text-bg-primary fs-5">Las más vendidas</h1>
-                                        <p class="text-center">
-                                            Estas son las notebook mas vendidas en el mercado, con los mejores
-                                            componentes.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="mt-auto text-center">
-                                    <a href="./pages/error404.html" class="btn btn-primary fs-5 mb-3">Comprar</a>
-                                </div>
-                            </div>
-                            <div class="carousel-item" data-bs-interval="10000">
-                                <div class="mini-carousel">
-                                    <img src="./assets/Las mas vendidas/hp-pavilion.webp" class="d-block w-100"
-                                        alt="HP-PAVILION" />
-                                </div>
-                                <div class="card-body d-flex flex-column justify-content-between">
-                                    <div class="text-center px-5 my-2">
-                                        <h1 class="badge text-bg-primary fs-5">Las más vendidas</h1>
-                                        <p class="text-center">
-                                            Estas son las notebook mas vendidas en el mercado, con los mejores
-                                            componentes.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="mt-auto text-center">
-                                    <a href="./pages/error404.html" class="btn btn-primary fs-5 mb-3">Comprar</a>
-                                </div>
-                            </div>
+                        <div class="carousel-inner my-1 cr2" data-bs-interval="10000">
+                           
                         </div>
                     </div>
                 </div>
