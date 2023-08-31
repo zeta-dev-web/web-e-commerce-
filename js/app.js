@@ -1,12 +1,13 @@
-
-
 //DECLARO VARIABLES
-
 let auth = JSON.parse(localStorage.getItem("auth")) || null,
 useravatar = document.getElementById('user-avatar'),
 closeuser = document.getElementById('close-user'),
 avatar = document.getElementById('avatar'),
-users = JSON.parse(localStorage.getItem("users"))
+users = JSON.parse(localStorage.getItem("users")),
+login = document.querySelector("#login"),
+carshop = JSON.parse(localStorage.getItem("carshop")) || [],
+productos = JSON.parse(localStorage.getItem("productos")),
+buttoncart = document.querySelector("#buttoncart")
 
 
 
