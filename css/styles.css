@@ -496,5 +496,9 @@ h6 span {
 }
 
 .card-text {
-  font-size: 10px;
+    font-size: 10px;
+} 
+
+table tr td{
+    vertical-align: middle;
 }
