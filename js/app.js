@@ -52,6 +52,7 @@ const miPerfil = () => {
 // Agrega un evento de clic al botón
 savechange.addEventListener("click", function () {
   let inputemail = document.querySelector("#inputEmail")
+  let inputPassword = document.querySelector("#inputPassword")
   // Realiza la búsqueda y modificación del usuario aquí
   for (const user of users) {
     if (user.email === auth.email) {
@@ -59,6 +60,7 @@ savechange.addEventListener("click", function () {
 
       // Modifica los valores del usuario
       user.email = inputemail.value;
+      user.pass = inputPassword.value;
 
       // Guarda los cambios en localStorage si es necesario
       localStorage.setItem("users", JSON.stringify(users));
@@ -70,9 +72,11 @@ savechange.addEventListener("click", function () {
       break;
     }
     perfilmodal.hide();
-    closesesion()
+    
   }
+  closesesion()
 });
+
 //Abre modal de perfil
 avatar.addEventListener("click", () => {
   miPerfil();

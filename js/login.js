@@ -20,9 +20,7 @@ const admin = {
   email: "admin@admin.com",
   avatar: "cdn.icon-icons.com/icons2/35/PNG/64/admin_person_user_man_2839.png",
   pass: "12345678",
-  admin: "master"
-  password: "12345678",
-  avatar: "https://cdn.icon-icons.com/icons2/2136/PNG/64/google_admin_icon_131692.png",
+  admin: "master",
 };
 localStorage.setItem("admin", JSON.stringify(admin));
 
