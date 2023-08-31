@@ -65,11 +65,23 @@
                             </ul>
                         </div>
                     </ul>
-                    <a href="./pages/error404.html">
+                    <div id="user-avatar">
+                        <button type="button" class="btn  m-2 d-none d-md-none d-lg-block">
+                            <img id="avatar"
+                            src="" alt="Avatar 1" />
+                        </button>
+                    </div>
+                    <div>
                         <button type="button" class="btn btn-light m-2 d-none d-md-none d-lg-block">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                         </button>
-                    </a>
+                    </div>
+                    
+                        <button id="close-user"
+                        type="button" class="btn btn-light m-2 d-none d-md-none d-lg-block">
+                            Cerrar sesion
+                        </button>
+                    
                     <form class="d-flex" role="search">
                         <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" />
                         <button class="btn btn-outline-light" type="submit">
@@ -149,6 +161,37 @@
             </div>
         </section>
     </footer>
+    <!-- Modal user -->
+<div class="modal fade" id="perfilModal" tabindex="-1" aria-labelledby="perfilModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="tituloModal">Mi Perfil </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div id="perfil-body"
+        class="modal-body">
+        <div> 
+            <div id="titulo-body">
+
+        </div>
+            <br></br>
+            <div id="change-email">
+
+            </div>
+            <label for="input" class="form-label">Ingrese el nuevo Email: </label>
+            <input type="email" id="inputEmail" class="form-control">
+            <label for="input" class="form-label">Ingrese su nueva contraseña: </label>
+            <input type="email" id="inputPassword" class="form-control">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button id="savechange" type="button" class="btn btn-primary">Guardar Cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
     <!-- Modal -->
     <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -190,6 +233,7 @@
         crossorigin="anonymous"></script>
     <script src="https://use.fontawesome.com/c2813ccf5b.js"></script>
      <script src="/js/app.js"></script>
+    
 </body>
 
 </html>
