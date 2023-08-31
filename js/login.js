@@ -18,6 +18,9 @@ login = document.querySelector("#login")
 const admin = {
   username: "Admin",
   email: "admin@admin.com",
+  avatar: "cdn.icon-icons.com/icons2/35/PNG/64/admin_person_user_man_2839.png",
+  pass: "12345678",
+  admin: "master"
   password: "12345678",
   avatar: "https://cdn.icon-icons.com/icons2/2136/PNG/64/google_admin_icon_131692.png",
 };
@@ -30,11 +33,12 @@ localStorage.setItem("admin", JSON.stringify(admin));
   loginUser();
 });
 
-const updateAuth = (user, email, avatar, admin) => { //funcion para guardar el inicio de sesion
+const updateAuth = (user, email, avatar, pass, admin) => { //funcion para guardar el inicio de sesion
   auth = {
     user: user,
     email: email,
     avatar: avatar,
+    pass: pass,
     admin: admin,
   };
   localStorage.setItem("auth", JSON.stringify(auth));
@@ -65,7 +69,7 @@ const loginUser = () => {
     return; 
   }
 
- if (email === admin.email && pass === admin.password) { //verifico si es admin master
+ if (email === admin.email && pass === admin.pass) { //verifico si es admin master
   const alertHTML = `
     <div>
       Iniciando sesion como administrador principal
@@ -77,7 +81,7 @@ const loginUser = () => {
   errorlogin.innerHTML = alertHTML;
   errorlogin.classList = "mt-2";
   errorlogin.role = "alert";
-   updateAuth(admin.username, admin.email, admin.avatar, "master");
+   updateAuth(admin.username, admin.email, admin.avatar, admin.pass, "master");
   // Limpiar el mensaje de alerta y redirigir después de 4 segundos
   setTimeout(() => {
     errorlogin.innerHTML = "";
@@ -89,7 +93,7 @@ const loginUser = () => {
   return;
 } else {
     for (const user of users) {
-      if (user.email === email && user.password === pass) { 
+      if (user.email === email && user.pass === pass) { 
         if (user.admin) { //verifico si es admin secundario
           const alertHTML = `
     <div>
@@ -102,7 +106,7 @@ const loginUser = () => {
   errorlogin.innerHTML = alertHTML;
   errorlogin.classList = "mt-2";
   errorlogin.role = "alert";
- updateAuth(user.username, user.email, user.avatar, "secundario");
+ updateAuth(user.username, user.email, user.avatar, user.pass, "secundario");
   // Limpiar el mensaje de alerta y redirigir después de 4 segundos
   setTimeout(() => {
     errorlogin.innerHTML = "";
@@ -124,7 +128,7 @@ const loginUser = () => {
   errorlogin.innerHTML = alertHTML;
   errorlogin.classList = "mt-2";
   errorlogin.role = "alert";
- updateAuth(user.username, user.email, user.avatar, "false");
+ updateAuth(user.username, user.email, user.avatar, user.pass, "false");
   // Limpiar el mensaje de alerta y redirigir después de 4 segundos
   setTimeout(() => {
     errorlogin.innerHTML = "";
@@ -165,6 +169,7 @@ const loginUser = () => {
 //creo el modal para mostrar el codigo de seguridad
 const modalSeg = document.querySelector("#codeModal");
 const codeModal = new bootstrap.Modal(modalSeg);
+const closeAndRedirect = document.querySelector("#closeAndRedirect")
 
 // REGISTRO DE USUARIO
 const generateRandomCode = (length) => { // funcion para generar codigo para el restablecimiento de clave
@@ -272,13 +277,18 @@ const registrationCode = generateRandomCode(4); //genero el codigo de recuperaci
   // Modifica el contenido del modal-body con el mensaje y el código
 const modalBody = modalSeg.querySelector(".modal-body");
 modalBody.innerHTML = `
-    <p>IMPORTANTE: Guarde el siguiente código por si olvida su contraseña: ${registrationCode}</p>
+    <p><b>IMPORTANTE:</p></b> 
+    <p>Guarde el siguiente código por si olvida su contraseña: <b>${registrationCode}</b></p>
 `;
 
 // Muestra el modal
 codeModal.show();
 }}
 
+closeAndRedirect.addEventListener("click", () => {
+  location.replace("../index.html");
+  codeModal.hide();
+});
 // recuperacion de clave
 // Captura el modal del código de seguridad
 const recoveryModal = new bootstrap.Modal(document.getElementById('codeModal'));
@@ -287,7 +297,57 @@ const recoveryModal = new bootstrap.Modal(document.getElementById('codeModal'));
 const btnRecovery = document.getElementById('btnrecovery');
 
 btnRecovery.addEventListener('click', (event) => {
-  event.preventDefault(); // Previene el comportamiento predeterminado del enlace
-  recoveryModal.show(); // Muestra el modal
+  event.preventDefault();
+
+  const modalBody = modalSeg.querySelector(".modal-body");
+  const passrecoveryLabel = document.querySelector("#exampleModalLabel")
+  passrecoveryLabel.innerHTML=`<b>Recuperacion de Contraseña</b>` 
+  modalBody.innerHTML = `
+    <p>Para recuperar su contraseña, ingrese su email y su código de seguridad proporcionado al registrarse.</p>
+    <input type="email" id="recoveryEmail" placeholder="Email"class="col-7">
+    <input type="text" id="recoveryCode" placeholder="Código" class="col-2">
+    <button type="button" id="confirmRecovery" class="btn btn-primary">Confirmar</button>
+`;
+
+  recoveryModal.show();
+
+  const confirmRecoveryButton = document.getElementById("confirmRecovery");
+
+  confirmRecoveryButton.addEventListener('click', () => {
+    const email = document.getElementById("recoveryEmail").value;
+    const recoveryCode = document.getElementById("recoveryCode").value;
+    
+    // Buscar el usuario en el arreglo users
+    const foundUser = users.find(user => user.email === email && user.code === recoveryCode);
+
+    if (foundUser) {
+      modalBody.innerHTML = `
+        <p>Ingrese nueva contraseña</p>
+        <input type="password" id="newPassword" placeholder="Contraseña" class="col-9">
+        <button type="button" id="confirmPass" class="btn btn-primary">Confirmar</button>
+      `;
+
+      const confirmPassButton = document.getElementById("confirmPass");
+
+      confirmPassButton.addEventListener('click', () => {
+        // Modificar la contraseña
+        const newPassword = document.getElementById("newPassword").value;
+        foundUser.pass = newPassword;
+
+        // Actualizar el arreglo en localStorage
+        localStorage.setItem("users", JSON.stringify(users));
+
+        // Mostrar mensaje de éxito o hacer alguna otra acción
+        modalBody.innerHTML = `
+          <p>Contraseña actualizada con éxito!</p>
+        `;
+      });
+    } else {
+      // Mostrar mensaje de error
+      modalBody.innerHTML = `
+        <p>No se encontró ningún usuario con el email y código de seguridad proporcionados</p>
+      `;
+    }
+  });
 });
 
