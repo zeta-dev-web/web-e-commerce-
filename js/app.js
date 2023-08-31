@@ -10,7 +10,6 @@ productos = JSON.parse(localStorage.getItem("productos")),
 buttoncart = document.querySelector("#buttoncart")
 
 
-
 //SI EL USUARIO ESTA LOGUEADO OCULTO EL PAGE LOGIN Y MUESTRO AVATAR Y BOTON CERRAR SESION
 
 if (auth) {
@@ -82,3 +81,35 @@ savechange.addEventListener("click", function () {
 avatar.addEventListener("click", () => {
   miPerfil();
 });
+
+const carritomodal = new bootstrap.Modal(document.getElementById('carritoModal'))
+
+
+
+//abre modal de carrito
+buttoncart.addEventListener("click", () => {
+  miCarrito();
+});
+
+const miCarrito = () => {
+  let carritobody= document.querySelector("#carrito-body")
+  // let imgup = document.querySelector("#img-up")
+  // let productname = document.querySelector("#name-product")
+carritobody.innerHTML=`<tr><td>PRODUCTO</td></tr><tr><td>MARCA</td></tr><tr><td>PRECIOGIT</td></tr>
+<tr>
+<br></br>
+<td><img id="imgcar" src="https://www.cordobanotebooks.com.ar/wp-content/uploads/2023/04/NP750XDA-KD1US4.jpg" alt="carrito"></td>
+        <td>producto</td>
+        <td>marca</td>    
+        <td>precio</td> </tr>`;
+
+// imgup.innerHTML=
+
+// /*         // <img src="${auth.imagen}" alt="carrito">
+//         // <p>Marca: ${auth.marca}</p>
+//         // <p>Precio: ${auth.precio}</p> */
+// `<img id="imgcar" src="https://www.cordobanotebooks.com.ar/wp-content/uploads/2023/04/NP750XDA-KD1US4.jpg" alt="carrito">`  
+// ;
+// productname.innerHTML="SAMSUNG"
+  carritomodal.show();
+};
