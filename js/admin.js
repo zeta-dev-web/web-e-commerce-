@@ -16,7 +16,6 @@ class Producto {
       }
 }
 
-
 const productos=JSON.parse(localStorage.getItem("productos")) ||[]
 
 
@@ -30,16 +29,14 @@ stock=document.querySelector("#stock"),
 submitbtn=document.querySelector(".submit"),
 modal=document.querySelector("#userForm"),
 modalTitle=document.querySelector("#userForm .modal-title"),
-userInfo=document.querySelector("#data")
-
-
-let isEdit=false,editId
+userInfo=document.querySelector("#data"),
+isEdit=false,editId
 
 const showInfo= ()=>{
     document.querySelectorAll(".detallesProd").forEach(info=>info.remove())
     productos.forEach((producto,index)=>{
         let createElement=`<tr class="detallesProd">
-        <td>${producto.id}</td>
+        <td>${index+1}</td>
         <td><img src="${producto.imagen}" alt="" width="50" height="50"></td>
         <td>${producto.nombre}</td>
         <td>${producto.marca}</td>    
@@ -70,6 +67,7 @@ document.querySelector("#showPrice").value=precio,
 document.querySelector("#showDesc").value=desc,
 document.querySelector("#showStock").value=stock
 }
+
 const editInfo=(index,img,nombre,marca,precio,descr,cant)=>{
 isEdit=true
 editId=index
@@ -83,6 +81,7 @@ stock.value=cant
 submitbtn.innerText="Actualizar"
 modalTitle.innerText="Actualizar el producto"
 }
+
 const deleteInfo=(index)=>{
     if(confirm("Estas seguro que quieres eliminar el producto?")){
         productos.splice(index,1)
@@ -124,6 +123,15 @@ showInfo()
     modal.style.display="none"
     document.querySelector(".modal-backdrop").remove()
 })
+const newProduct=()=>{
+  isEdit = false
+  form.reset()
+}
+let btnNew=document.getElementById("btnNew")
+btnNew.addEventListener("click",newProduct)
+
+productosEx=productos
+
 
 
 
