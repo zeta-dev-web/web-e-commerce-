@@ -12,7 +12,31 @@ submitbtn=document.querySelector(".submit"),
 modal=document.querySelector("#userForm"),
 modalTitle=document.querySelector("#userForm .modal-title"),
 userInfo=document.querySelector("#data"),
-isEdit=false,editId
+mainadmin = document.querySelector("#main-admin")
+let isEdit=false,editId
+let closeuser = document.querySelector("#close-sesion"),
+login = document.querySelector("#login"),
+auth = JSON.parse(localStorage.getItem("auth")) || null
+
+
+//oculto 
+ if (!auth) {
+  closeuser.classList= "d-none"
+  mainadmin.innerHTML= ""
+}
+
+
+//cierro cesion de administrador
+closeuser.addEventListener("click", () => {
+  closesesion();
+});
+
+const closesesion =() =>{
+auth = null
+localStorage.removeItem("auth")
+location.replace("../index.html")
+}
+
 
 const showInfo= ()=>{
     document.querySelectorAll(".detallesProd").forEach(info=>info.remove())
