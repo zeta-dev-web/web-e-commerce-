@@ -31,13 +31,13 @@ localStorage.setItem("admin", JSON.stringify(admin));
   loginUser();
 });
 
-const updateAuth = (user, email, avatar, pass, carshop, admin) => { //funcion para guardar el inicio de sesion
+const updateAuth = (user, email, avatar, pass, [], admin) => { //funcion para guardar el inicio de sesion
   auth = {
     user: user,
     email: email,
     avatar: avatar,
     pass: pass,
-    carshop: carshop,
+    carshop: [],
     admin: admin,
   };
   localStorage.setItem("auth", JSON.stringify(auth));

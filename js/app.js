@@ -1,3 +1,5 @@
+import { CarShop } from "./clases.js"
+
 //DECLARO VARIABLES
 let auth = JSON.parse(localStorage.getItem("auth")) || null,
 useravatar = document.getElementById('user-avatar'),
@@ -5,7 +7,6 @@ closeuser = document.getElementById('close-user'),
 avatar = document.getElementById('avatar'),
 users = JSON.parse(localStorage.getItem("users")),
 login = document.querySelector("#login"),
-carshop = JSON.parse(localStorage.getItem("carshop")) || [],
 productos = JSON.parse(localStorage.getItem("productos")),
 buttoncart = document.querySelector("#buttoncart")
 
@@ -85,6 +86,37 @@ avatar.addEventListener("click", () => {
 const carritomodal = new bootstrap.Modal(document.getElementById('carritoModal'))
 
 
+//este codigo debe ir junto con las tarjetas que ejecuta la funcion agregar producto al carrito
+window.agregarCarrito = () => {
+  // Crea un nuevo objeto CarShop
+  const addcarshop = new CarShop(1, 1, "https://www.cordobanotebooks.com.ar/wp-content/uploads/2023/04/NP750XDA-KD1US4.jpg", "LENOVO", 150000);
+
+  // Verifica si el producto ya está en el carrito
+  let productoExistente = null;
+  for (const producto of auth.carshop) {
+    if (producto.id === addcarshop.id) {
+      productoExistente = producto;
+      break; // Detén el bucle si se encuentra una coincidencia
+    }
+  }
+
+  if (productoExistente) {
+    // Si el producto ya está en el carrito, incrementa la cantidad
+    productoExistente.cantidad++;
+  } else {
+    // Si el producto no está en el carrito, agrégalo como nuevo elemento
+    addcarshop.cantidad = 1; // Inicializa la cantidad en 1
+    auth.carshop.push(addcarshop); // Agrega el objeto completo, no solo su cantidad
+  }
+
+  // Actualiza el contenido de auth en la local storage
+  localStorage.setItem('auth', JSON.stringify(auth));
+};
+
+
+// Verifica el contenido de auth.carshop
+console.log(auth.carshop);
+
 
 //abre modal de carrito
 buttoncart.addEventListener("click", () => {
@@ -92,24 +124,29 @@ buttoncart.addEventListener("click", () => {
 });
 
 const miCarrito = () => {
-  let carritobody= document.querySelector("#carrito-body")
-  // let imgup = document.querySelector("#img-up")
-  // let productname = document.querySelector("#name-product")
-carritobody.innerHTML=`<tr><td>PRODUCTO</td></tr><tr><td>MARCA</td></tr><tr><td>PRECIOGIT</td></tr>
-<tr>
-<br></br>
-<td><img id="imgcar" src="https://www.cordobanotebooks.com.ar/wp-content/uploads/2023/04/NP750XDA-KD1US4.jpg" alt="carrito"></td>
-        <td>producto</td>
-        <td>marca</td>    
-        <td>precio</td> </tr>`;
+  let carritobody = document.querySelector("#carrito-body");
+  
+  if (auth.carshop.length === 0) {
+    // Si el arreglo está vacío, muestra un mensaje
+    carritobody.innerHTML = '<h5 class="font-weight-bold">No posee productos agregados.</h5>';
+  } else {
+    // Si el arreglo no está vacío, genera la tabla
+    let tablaHTML = '<table class="table"><thead><tr><th>CANTIDAD</th><th>FOTO</th><th>MARCA</th><th>PRECIO</th></tr></thead><tbody>';
+  
+    auth.carshop.forEach(function (producto) {
+      tablaHTML += '<tr>';
+      tablaHTML += '<td>' + producto.cantidad + '</td>';
+      tablaHTML += '<td><img src="' + producto.imagen + '" alt="modelo" width="50" height="50"></td>';
+      tablaHTML += '<td>' + producto.marca + '</td>';
+      tablaHTML += '<td>' + producto.precio + '</td>';
+      tablaHTML += '</tr>';
+    });
+  
+    tablaHTML += '</tbody></table>';
+    
+    // Agrega la tabla generada al div con id "carrito-body"
+    carritobody.innerHTML = tablaHTML;
+  }
 
-// imgup.innerHTML=
-
-// /*         // <img src="${auth.imagen}" alt="carrito">
-//         // <p>Marca: ${auth.marca}</p>
-//         // <p>Precio: ${auth.precio}</p> */
-// `<img id="imgcar" src="https://www.cordobanotebooks.com.ar/wp-content/uploads/2023/04/NP750XDA-KD1US4.jpg" alt="carrito">`  
-// ;
-// productname.innerHTML="SAMSUNG"
   carritomodal.show();
 };
