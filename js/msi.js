@@ -19,7 +19,7 @@ const cargarCards= ()=>{
     labelTop.classList="label-top shadow-sm"
     labelTop.innerText=producto.nombre
     let cardBody=document.createElement("div")
-    cardBody.classList="card-body"
+    cardBody.classList="card-body cat-body"
     let clearFix=document.createElement("div")
     clearFix.classList="clearfix mb-3"
     let floatStart=document.createElement("span")
