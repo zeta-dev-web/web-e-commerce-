@@ -44,6 +44,7 @@ const showInfo= ()=>{
         <td>${producto.nombre}</td>
         <td>${producto.marca}</td>    
         <td>${producto.precio}</td>   
+        <td>${producto.descripcion}</td>
         <td>${producto.stock}</td>
         <td>
         <button class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#readData" onclick="readInfo('${producto.imagen}', '${producto.nombre}', '${producto.marca}', '${producto.precio}', '${producto.descripcion}', '${producto.stock}')">
@@ -124,43 +125,86 @@ showInfo()
     document.querySelector(".modal-backdrop").remove()
 })
 
+// //probando funcion de menu desplegable
+//  // Datos de ejemplo para los productos
+//     const products = [
+//         { id: 1, nombre: 'Producto 1', marca: 'Marca 1', precio: 100, stock: 50 },
+//         { id: 2, nombre: 'Producto 2', marca: 'Marca 2', precio: 200, stock: 30 },
+//         // Agrega más productos según sea necesario
+//     ];
+
+//     // Función para llenar el menú desplegable
+//     function fillMobileProductMenu() {
+//         const mobileProductMenu = document.getElementById('mobile-product-menu');
+//         products.forEach((product) => {
+//             const option = document.createElement('option');
+//             option.value = product.id;
+//             option.textContent = `${product.nombre} - ${product.marca}`;
+//             mobileProductMenu.appendChild(option);
+//         });
+//     }
+
+//     // Manejar la selección del usuario en el menú desplegable
+//     document.addEventListener('DOMContentLoaded', function () {
+//         fillMobileProductMenu();
+
+//         const mobileProductMenu = document.getElementById('mobile-product-menu');
+//         mobileProductMenu.addEventListener('change', function () {
+//             const selectedProductId = parseInt(this.value);
+//             if (!isNaN(selectedProductId)) {
+//                 // Aquí puedes mostrar los detalles del producto seleccionado
+//                 // utilizando JavaScript según tus necesidades.
+//             }
+//         });
+//     });
+
+
+
 //panel de admin de usuarios
 // Función para mostrar usuarios
-const mostrarUsuarios = () => {
-  // Obtén la referencia al elemento donde deseas mostrar la lista de usuarios
-  const usuariosTableBody = document.getElementById("usuarios-data");
+// const mostrarUsuarios = () => {
+//   // Obtén la referencia al elemento donde deseas mostrar la lista de usuarios
+//   const usuariosTableBody = document.getElementById("usuarios-data");
 
-  // Obtén los usuarios almacenados en la local storage (asegúrate de que los datos estén almacenados como un arreglo)
-  const usuarios = JSON.parse(localStorage.getItem("users")) || [];
+//   // Obtén los usuarios almacenados en la local storage (asegúrate de que los datos estén almacenados como un arreglo)
+//   const usuarios = JSON.parse(localStorage.getItem("users")) || [];
 
-  // Verifica si hay usuarios para mostrar
-  if (usuarios.length === 0) {
-    // No hay usuarios, muestra un mensaje
-    usuariosTableBody.innerHTML = '<tr><td colspan="8">No hay usuarios registrados.</td></tr>';
-  } else {
-    // Hay usuarios, crea filas para cada usuario
-    let usuariosHTML = "";
-    usuarios.forEach((usuario) => {
-      usuariosHTML += `
-        <tr>
-          <td class=col-1>${usuario.admin}</td>
-          <td class=col-2>${usuario.email}</td>
-          <td class=col-2>${usuario.pass}</td>
-          <td class=col-1>${usuario.code}</td>
-          <td class=col-1>
-            <button class="btn btn-danger" onclick="eliminarUsuario(${usuario.id})">x</button>
-          </td>
-        </tr>
-      `;
-    });
+//   // Verifica si hay usuarios para mostrar
+//   if (usuarios.length === 0) {
+//     // No hay usuarios, muestra un mensaje
+//     usuariosTableBody.innerHTML = '<tr><td colspan="8">No hay usuarios registrados.</td></tr>';
+//   } else {
+//     // Hay usuarios, crea filas para cada usuario
+//     let usuariosHTML = "";
+//     usuarios.forEach((usuario) => {
+//       usuariosHTML += `
+//         <tr>
+//           <td class=col-1>${usuario.admin}</td>
+//           <td class=col-2>${usuario.email}</td>
+//           <td class=col-2>${usuario.pass}</td>
+//           <td class=col-1>${usuario.code}</td>
+//           <td class=col-1>
+//             <button class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#readData">
+//           <i class="fa fa-eye" aria-hidden="true"></i>
+//         </button>
+//         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userForm">
+//           <i class="fa fa-pencil" aria-hidden="true"></i>
+//         </button>
+//         <button class="btn btn-danger">
+//           <i class="fa fa-trash" aria-hidden="true"></i>
+//         </button>
+//           </td>
+//         </tr>
+//       `;
+//     });
 
-    // Agrega las filas de usuarios a la tabla
-    usuariosTableBody.innerHTML = usuariosHTML;
-  }
-};
+//     // Agrega las filas de usuarios a la tabla
+//     usuariosTableBody.innerHTML = usuariosHTML;
+//   }
+// };
 
-// Llama a la función para mostrar usuarios al cargar la página
-mostrarUsuarios();
+// // Llama a la función para mostrar usuarios al cargar la página
+// mostrarUsuarios();
 
 // let cr1 = document.querySelector(".cr1")
 // let cr2 = document.querySelector(".cr2")
