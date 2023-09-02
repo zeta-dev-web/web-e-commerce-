@@ -6,6 +6,10 @@
   padding: 0;
   font-family: "Open Sans", sans-serif;
 }
+body {
+  padding-bottom: 70px;
+}
+
 .titulo {
   color: white;
   text-decoration: none;
@@ -87,7 +91,7 @@
 /* Footer */
 
 .footer-container {
-  min-width: 50%;
+  width: 100%;
 }
 
 .color {

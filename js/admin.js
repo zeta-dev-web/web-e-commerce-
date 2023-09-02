@@ -44,7 +44,6 @@ const showInfo= ()=>{
         <td>${producto.nombre}</td>
         <td>${producto.marca}</td>    
         <td>${producto.precio}</td>   
-        <td>${producto.descripcion}</td>
         <td>${producto.stock}</td>
         <td>
         <button class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#readData" onclick="readInfo('${producto.imagen}', '${producto.nombre}', '${producto.marca}', '${producto.precio}', '${producto.descripcion}', '${producto.stock}')">
@@ -125,7 +124,43 @@ showInfo()
     document.querySelector(".modal-backdrop").remove()
 })
 
+//panel de admin de usuarios
+// Función para mostrar usuarios
+const mostrarUsuarios = () => {
+  // Obtén la referencia al elemento donde deseas mostrar la lista de usuarios
+  const usuariosTableBody = document.getElementById("usuarios-data");
 
+  // Obtén los usuarios almacenados en la local storage (asegúrate de que los datos estén almacenados como un arreglo)
+  const usuarios = JSON.parse(localStorage.getItem("users")) || [];
+
+  // Verifica si hay usuarios para mostrar
+  if (usuarios.length === 0) {
+    // No hay usuarios, muestra un mensaje
+    usuariosTableBody.innerHTML = '<tr><td colspan="8">No hay usuarios registrados.</td></tr>';
+  } else {
+    // Hay usuarios, crea filas para cada usuario
+    let usuariosHTML = "";
+    usuarios.forEach((usuario) => {
+      usuariosHTML += `
+        <tr>
+          <td class=col-1>${usuario.admin}</td>
+          <td class=col-2>${usuario.email}</td>
+          <td class=col-2>${usuario.pass}</td>
+          <td class=col-1>${usuario.code}</td>
+          <td class=col-1>
+            <button class="btn btn-danger" onclick="eliminarUsuario(${usuario.id})">x</button>
+          </td>
+        </tr>
+      `;
+    });
+
+    // Agrega las filas de usuarios a la tabla
+    usuariosTableBody.innerHTML = usuariosHTML;
+  }
+};
+
+// Llama a la función para mostrar usuarios al cargar la página
+mostrarUsuarios();
 
 // let cr1 = document.querySelector(".cr1")
 // let cr2 = document.querySelector(".cr2")
@@ -224,3 +259,4 @@ showInfo()
 // })
 // }
 // cargarCar()
+
