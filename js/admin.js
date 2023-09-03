@@ -1,23 +1,4 @@
-class Producto {
-    constructor(nombre,precio,marca,imagen,descripcion,stock){
-        this.id = Producto.getNextId()
-        this.nombre=nombre
-        this.precio=precio
-        this.marca=marca
-        this.imagen=imagen
-        this.descripcion=descripcion
-        this.stock=stock
-    }
-    static getNextId() {
-        if (!this.nextId) {
-          this.nextId = 1;
-        }
-        return this.nextId++;
-      }
-}
-
-
-const productos=JSON.parse(localStorage.getItem("productos")) ||[]
+import {productos,Producto} from "./clases.js"
 
 
 let form= document.querySelector("#myForm"),
@@ -30,27 +11,48 @@ stock=document.querySelector("#stock"),
 submitbtn=document.querySelector(".submit"),
 modal=document.querySelector("#userForm"),
 modalTitle=document.querySelector("#userForm .modal-title"),
-userInfo=document.querySelector("#data")
-
-
+userInfo=document.querySelector("#data"),
+mainadmin = document.querySelector("#main-admin")
 let isEdit=false,editId
+let closeuser = document.querySelector("#close-sesion"),
+login = document.querySelector("#login"),
+auth = JSON.parse(localStorage.getItem("auth")) || null
+
+
+//oculto 
+ if (!auth) {
+  closeuser.classList= "d-none"
+  mainadmin.innerHTML= ""
+}
+
+
+//cierro cesion de administrador
+closeuser.addEventListener("click", () => {
+  closesesion();
+});
+
+const closesesion =() =>{
+auth = null
+localStorage.removeItem("auth")
+location.replace("../index.html")
+}
+
 
 const showInfo= ()=>{
     document.querySelectorAll(".detallesProd").forEach(info=>info.remove())
     productos.forEach((producto,index)=>{
         let createElement=`<tr class="detallesProd">
-        <td>${producto.id}</td>
+        <td>${index+1}</td>
         <td><img src="${producto.imagen}" alt="" width="50" height="50"></td>
         <td>${producto.nombre}</td>
         <td>${producto.marca}</td>    
         <td>${producto.precio}</td>   
-        <td>${producto.descripcion}</td>
         <td>${producto.stock}</td>
         <td>
         <button class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#readData" onclick="readInfo('${producto.imagen}', '${producto.nombre}', '${producto.marca}', '${producto.precio}', '${producto.descripcion}', '${producto.stock}')">
           <i class="fa fa-eye" aria-hidden="true"></i>
         </button>
-        <button class="btn btn-primary" onclick="editInfo(${index},'${producto.imagen}','${producto.nombre}','${producto.marca}','${producto.precio}','${producto.descripcion}','${producto.stock}')" data-bs-toggle="modal" data-bs-target="#userForm">
+        <button class="btn btn-primary" onclick="editInfo(${index},'${producto.imagen}','${producto.nombre}','${producto.marca}','${producto.precio}','${producto.descripcion}','${producto.stock}')" data-bs-toggle="modal" data-bs-target="#userForm" id="edit">
           <i class="fa fa-pencil" aria-hidden="true"></i>
         </button>
         <button class="btn btn-danger" onclick="deleteInfo(${index})">
@@ -62,7 +64,7 @@ const showInfo= ()=>{
         userInfo.innerHTML+=createElement
     })
 }
-const readInfo=(img,nombre,marca,precio,desc,stock)=>{
+window.readInfo=(img,nombre,marca,precio,desc,stock)=>{
 document.querySelector("#showImgurl").value=img,
 document.querySelector("#showName").value=nombre,
 document.querySelector("#showBrand").value=marca,
@@ -70,7 +72,8 @@ document.querySelector("#showPrice").value=precio,
 document.querySelector("#showDesc").value=desc,
 document.querySelector("#showStock").value=stock
 }
-const editInfo=(index,img,nombre,marca,precio,descr,cant)=>{
+
+window.editInfo=(index,img,nombre,marca,precio,descr,cant)=>{
 isEdit=true
 editId=index
 imgurl.value=img
@@ -83,7 +86,8 @@ stock.value=cant
 submitbtn.innerText="Actualizar"
 modalTitle.innerText="Actualizar el producto"
 }
-const deleteInfo=(index)=>{
+
+window.deleteInfo=(index)=>{
     if(confirm("Estas seguro que quieres eliminar el producto?")){
         productos.splice(index,1)
         localStorage.setItem("productos",JSON.stringify(productos))
@@ -124,7 +128,12 @@ showInfo()
     modal.style.display="none"
     document.querySelector(".modal-backdrop").remove()
 })
-
+const newProduct=()=>{
+  isEdit = false
+  form.reset()
+}
+let btnNew=document.getElementById("btnNew")
+btnNew.addEventListener("click",newProduct)
 // //probando funcion de menu desplegable
 //  // Datos de ejemplo para los productos
 //     const products = [
@@ -159,52 +168,175 @@ showInfo()
 //     });
 
 
+//codigo leo z
+// panel de admin de usuarios
+const userModal = new bootstrap.Modal(document.getElementById('userModal'));
+ // Obtén los usuarios almacenados en la local storage (asegúrate de que los datos estén almacenados como un arreglo)
+  const usuarios = JSON.parse(localStorage.getItem("users")) || [];
 
-//panel de admin de usuarios
-// Función para mostrar usuarios
-// const mostrarUsuarios = () => {
-//   // Obtén la referencia al elemento donde deseas mostrar la lista de usuarios
-//   const usuariosTableBody = document.getElementById("usuarios-data");
+// Función para mostrar la lista de usuarios en la tabla
+const showUsers = () => {
+  // Obtén la referencia al elemento donde deseas mostrar la lista de usuarios
+  const usuariosTableBody = document.getElementById("usuarios-data");
 
-//   // Obtén los usuarios almacenados en la local storage (asegúrate de que los datos estén almacenados como un arreglo)
-//   const usuarios = JSON.parse(localStorage.getItem("users")) || [];
+  // Limpiar la tabla antes de agregar nuevas filas
+  usuariosTableBody.innerHTML = '';
 
-//   // Verifica si hay usuarios para mostrar
-//   if (usuarios.length === 0) {
-//     // No hay usuarios, muestra un mensaje
-//     usuariosTableBody.innerHTML = '<tr><td colspan="8">No hay usuarios registrados.</td></tr>';
-//   } else {
-//     // Hay usuarios, crea filas para cada usuario
-//     let usuariosHTML = "";
-//     usuarios.forEach((usuario) => {
-//       usuariosHTML += `
-//         <tr>
-//           <td class=col-1>${usuario.admin}</td>
-//           <td class=col-2>${usuario.email}</td>
-//           <td class=col-2>${usuario.pass}</td>
-//           <td class=col-1>${usuario.code}</td>
-//           <td class=col-1>
-//             <button class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#readData">
-//           <i class="fa fa-eye" aria-hidden="true"></i>
-//         </button>
-//         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userForm">
-//           <i class="fa fa-pencil" aria-hidden="true"></i>
-//         </button>
-//         <button class="btn btn-danger">
-//           <i class="fa fa-trash" aria-hidden="true"></i>
-//         </button>
-//           </td>
-//         </tr>
-//       `;
-//     });
+  // Verifica si hay usuarios para mostrar
+  if (usuarios.length === 0) {
+    // No hay usuarios, muestra un mensaje
+    usuariosTableBody.innerHTML = '<tr><td colspan="8">No hay usuarios registrados.</td></tr>';
+  } else {
+    // Hay usuarios, crea filas para cada usuario
+    usuarios.map((usuario, index) => {
+      let fila = document.createElement("tr");
+      let celdas = `
+        <td>${usuario.admin}</td>
+        <td>${usuario.email}</td>
+        <td>${usuario.pass}</td>
+        <td>${usuario.code}</td>
+        <td> 
+          <button class="btn btn-success btn-view">
+            <i class="fa fa-eye" aria-hidden="true"></i>
+          </button>
+          <button class="btn btn-primary btn-view">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </button>
+          <button class="btn btn-danger btn-delete">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </button>
+        </td>
+      `;
 
-//     // Agrega las filas de usuarios a la tabla
-//     usuariosTableBody.innerHTML = usuariosHTML;
-//   }
+      fila.innerHTML = celdas;
+      usuariosTableBody.append(fila);
+// Agrega un evento de clic al botón de mostrar
+      const viewButton = fila.querySelector(".btn-view");
+      viewButton.addEventListener("click", () => {
+        readUser(index);
+      })
+      // Agrega un evento de clic al botón de eliminación
+      const deleteButton = fila.querySelector(".btn-delete");
+      deleteButton.addEventListener("click", () => {
+        delUser(index);
+      });
+    });
+  }
+};
+
+// función para borrar el usuario
+const delUser = (index) => {
+  const usuarios = JSON.parse(localStorage.getItem("users")) || [];
+  let validar = confirm(
+    `¿Está seguro que quiere eliminar al usuario: ${usuarios[index].username}?`
+  );
+  if (validar) {
+    usuarios.splice(index, 1);
+    localStorage.setItem("users", JSON.stringify(usuarios));
+    alert("El usuario fue eliminado con éxito");
+    showUsers();
+  }
+};
+let posicionUsuario = null;
+const readUser = (index) => {
+  document.querySelector("#nombre").value = usuarios[index].username;
+  document.querySelector("#email").value = usuarios[index].email;
+  document.querySelector("#password").value = usuarios[index].password;
+  document.querySelector("#codigoSeguridad").value = usuarios[index].code;
+  document.querySelector("#admin").value = usuarios[index].admin;
+  posicionUsuario = index;
+  userModal.show()
+};
+
+
+
+
+// // Función para mostrar los datos del usuario en el modal
+// const showUserData = (filaId) => {
+//   const userModal = new bootstrap.Modal(document.getElementById('userModal'));
+//   const titulousuarioModal = document.querySelector("#titulouserModalLabel");
+//   const cuerpomodal = document.querySelector("#bodyuserModal");
+
+//   titulousuarioModal.innerHTML = `Datos de usuario`;
+//   userModal.show();
+
+//   // Encuentra el objeto usuarioData correspondiente al filaId
+//   const usuarioData = usuariosData.find((usuario) => usuario.username === filaId);
+
+//   // Muestra los datos del usuario en el modal
+//   cuerpomodal.innerHTML = `
+//     <form id="userForm">
+//       <div class="mb-3">
+//         <label for="nombre" class="form-label">Nombre</label>
+//         <input type="text" class="form-control" id="nombre" name="nombre" value="${usuarioData.username}" required>
+//       </div>
+//       <div class="mb-3">
+//         <label for="email" class="form-label">Email</label>
+//         <input type="email" class="form-control" id="email" name="email" value="${usuarioData.email}" required>
+//       </div>
+//       <div class="mb-3">
+//         <label for="password" class="form-label">Contraseña</label>
+//         <input type="password" class="form-control" id="password" name="password" value="${usuarioData.password}" required>
+//       </div>
+//       <div class="mb-3">
+//         <label for="codigoSeguridad" class="form-label">Código de Seguridad</label>
+//         <input type="text" class="form-control" id="codigoSeguridad" name="codigoSeguridad" required>
+//       </div>
+//       <div class="mb-3">
+//         <label for="avatar" class="form-label">Avatar (URL de la imagen)</label>
+//         <input type="text" class="form-control" id="avatar" name="avatar" value="${usuarioData.avatar}">
+//       </div>
+//       <div class="mb-3">
+//         <label for="admin" class="form-label">Estado de Admin</label>
+//         <input type="text" class="form-control" id="admin" name="admin" value="${usuarioData.admin}" required>
+//       </div>
+//     </form>
+//   `;
 // };
 
-// // Llama a la función para mostrar usuarios al cargar la página
-// mostrarUsuarios();
+// // Agrega un evento click a toda la página para capturar el clic en el botón "Ver"
+// document.addEventListener("click", (event) => {
+//   if (event.target.classList.contains("btn-view")) {
+//     const filaId = event.target.getAttribute("data-fila-id");
+
+//     // Llama a la función para mostrar los datos del usuario en el modal
+//     showUserData(filaId);
+//   }
+// });
+
+// Llama a la función para mostrar la lista de usuarios en la tabla
+showUsers();
+// window.verUsuario = () => {
+// titulousuarioModal.innerHTML=`Datos de usuario`  
+// userModal.show()
+// cuerpomodal.innerHTML=`<form id="userForm">
+//   <div class="mb-3">
+//     <label for="nombre" class="form-label">Nombre</label>
+//     <input type="text" class="form-control" id="nombre" name="nombre" required>
+//   </div>
+//   <div class="mb-3">
+//     <label for="email" class="form-label">Email</label>
+//     <input type="email" class="form-control" id="email" name="email" required>
+//   </div>
+//   <div class="mb-3">
+//     <label for="password" class="form-label">Contraseña</label>
+//     <input type="password" class="form-control" id="password" name="password" required>
+//   </div>
+//   <div class="mb-3">
+//     <label for="codigoSeguridad" class="form-label">Código de Seguridad</label>
+//     <input type="text" class="form-control" id="codigoSeguridad" name="codigoSeguridad" required>
+//   </div>
+//   <div class="mb-3">
+//     <label for="avatar" class="form-label">Avatar (URL de la imagen)</label>
+//     <input type="text" class="form-control" id="avatar" name="avatar">
+//   </div>
+// <div class="mb-3">
+//     <label for="admin" class="form-label">Estado de Admin</label>
+//     <input type="text" class="form-control" id="admin" name="codigoSeguridad" required>
+//   </div>
+// </form>`
+// }
+// verUsuario()
 
 // let cr1 = document.querySelector(".cr1")
 // let cr2 = document.querySelector(".cr2")
@@ -303,4 +435,3 @@ showInfo()
 // })
 // }
 // cargarCar()
-
