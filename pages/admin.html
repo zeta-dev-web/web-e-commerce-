@@ -106,12 +106,13 @@
             </ul>
             <div id="user-avatar">
               <button type="button" class="btn m-2 d-none d-md-none d-lg-block">
-                <img id="avatar" src="" alt="Avatar 1" />
+                <img id="avataruser" src="leo" alt="Avatar 1" />
               </button>
             </div>
             <div>
               <button
                 type="button"
+                id="buttoncart"
                 class="btn btn-light m-2 d-none d-md-none d-lg-block"
               >
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -460,71 +461,40 @@
             ></button>
           </div>
           <div class="modal-body" id="bodyuserModal">
-            <form id="userForm">
-              <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="nombre"
-                  name="nombre"
-                  required
+            <div class="mb-3 d-flex">
+              <div
+                id="avatar"
+                style="width: 50px; height: 50px; overflow: hidden"
+                class="col-6"
+              >
+                <img
+                  id="avatarPreview"
+                  src=""
+                  alt="Avatar"
+                  style="max-width: 100%; max-height: 100%"
                 />
               </div>
-              <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="email"
-                  name="email"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="password" class="form-label">Contraseña</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  id="password"
-                  name="password"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="codigoSeguridad" class="form-label"
-                  >Código de Seguridad</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="codigoSeguridad"
-                  name="codigoSeguridad"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="avatar" class="form-label"
-                  >Avatar (URL de la imagen)</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="avatar"
-                  name="avatar"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="admin" class="form-label">Estado de Admin</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="admin"
-                  name="admin"
-                  required
-                />
-              </div>
-            </form>
+              <div
+                id="nombre"
+                class="col 6 ms-2 d-flex align-items-center"
+              ></div>
+            </div>
+            <div
+              id="email"
+              class="mb-3 col 6 ms-2 d-flex align-items-center"
+            ></div>
+            <div
+              id="password"
+              class="mb-3 col 6 ms-2 d-flex align-items-center"
+            ></div>
+            <div
+              id="codigoSeguridad"
+              class="mb-3 col 6 ms-2 d-flex align-items-center"
+            ></div>
+            <div
+              id="admin"
+              class="mb-3 col 6 ms-2 d-flex align-items-center"
+            ></div>
           </div>
           <div class="modal-footer">
             <button
@@ -534,7 +504,9 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-primary" id="btn-guardar">
+              Save changes
+            </button>
           </div>
         </div>
       </div>

@@ -17,12 +17,22 @@ let isEdit=false,editId
 let closeuser = document.querySelector("#close-sesion"),
 login = document.querySelector("#login"),
 auth = JSON.parse(localStorage.getItem("auth")) || null
+let avatarnav = document.querySelector("#avataruser"),
+useravatar=document.querySelector("#user-avatar")
 
-
-//oculto 
- if (!auth) {
+//oculto botones al admin master 
+if (!auth) {
+ mainadmin.innerHTML= ""
   closeuser.classList= "d-none"
-  mainadmin.innerHTML= ""
+    useravatar.innerHTML=""
+}else if(auth.admin=="master" || auth.admin=="secundario") {
+  avatarnav.src= auth.avatar
+  }
+//oculto botones y usuarios al admin secundario
+if (auth.admin==="secundario") {
+  document.querySelector("#buttoncart").classList="d-none"
+  useravatar.innerHTML=""
+document.querySelector("#admin-user").classList="d-none"
 }
 
 
@@ -36,7 +46,6 @@ auth = null
 localStorage.removeItem("auth")
 location.replace("../index.html")
 }
-
 
 const showInfo= ()=>{
     document.querySelectorAll(".detallesProd").forEach(info=>info.remove())
@@ -104,15 +113,8 @@ form.addEventListener("submit",(e)=>{
        brand.value,
        imgurl.value,
        desc.value,
-       stock.value
-
-      
-    )
+       stock.value)
     
-   
-   
-   
- 
      if(!isEdit){
         productos.push(producto)
      } else{
@@ -176,9 +178,7 @@ const userModal = new bootstrap.Modal(document.getElementById('userModal'));
 
 // Función para mostrar la lista de usuarios en la tabla
 const showUsers = () => {
-  // Obtén la referencia al elemento donde deseas mostrar la lista de usuarios
-  const usuariosTableBody = document.getElementById("usuarios-data");
-
+   const usuariosTableBody = document.querySelector("#usuarios-data");
   // Limpiar la tabla antes de agregar nuevas filas
   usuariosTableBody.innerHTML = '';
 
@@ -199,7 +199,7 @@ const showUsers = () => {
           <button class="btn btn-success btn-view">
             <i class="fa fa-eye" aria-hidden="true"></i>
           </button>
-          <button class="btn btn-primary btn-view">
+          <button class="btn btn-primary btn-view" id="btn-edit">
             <i class="fa fa-pencil" aria-hidden="true"></i>
           </button>
           <button class="btn btn-danger btn-delete">
@@ -214,6 +214,11 @@ const showUsers = () => {
       const viewButton = fila.querySelector(".btn-view");
       viewButton.addEventListener("click", () => {
         readUser(index);
+      })
+      // Agrega un evento de clic al botón editar
+      const editButton = fila.querySelector("#btn-edit");
+      editButton.addEventListener("click", () => {
+        editUser(index);
       })
       // Agrega un evento de clic al botón de eliminación
       const deleteButton = fila.querySelector(".btn-delete");
@@ -234,20 +239,147 @@ const delUser = (index) => {
     usuarios.splice(index, 1);
     localStorage.setItem("users", JSON.stringify(usuarios));
     alert("El usuario fue eliminado con éxito");
-    showUsers();
+    location.reload();
   }
 };
+
+// funcion para mostrar el usuario
 let posicionUsuario = null;
 const readUser = (index) => {
-  document.querySelector("#nombre").value = usuarios[index].username;
-  document.querySelector("#email").value = usuarios[index].email;
-  document.querySelector("#password").value = usuarios[index].password;
-  document.querySelector("#codigoSeguridad").value = usuarios[index].code;
-  document.querySelector("#admin").value = usuarios[index].admin;
-  posicionUsuario = index;
+  document.querySelector("#titulouserModalLabel").innerHTML=`<h5><b>Datos del usuario</b>`
+  document.querySelector("#nombre").innerHTML=`<h5><b>Nombre:</b> ${usuarios[index].username}</h5>`;
+  document.querySelector("#email").innerHTML=`<h5><b>Email:</b> ${usuarios[index].email}</h5>`;
+  document.querySelector("#password").innerHTML=`<h5><b>Password:</b> ${usuarios[index].pass}</h5>`;  
+  document.querySelector("#codigoSeguridad").innerHTML=`<h5><b>Codigo de Recuperacion:</b> ${usuarios[index].code}</h5>`;
+  if (usuarios[index].admin==false) {
+   document.querySelector("#admin").innerHTML=`<h5><b>Admin:</b> No es Admin</h5>`;   
+  }
+  else{document.querySelector("#admin").innerHTML=`<h5><b>Admin:</b> Es admin secundario</h5>`;   }
+  document.querySelector("#avatarPreview").src=usuarios[index].avatar;
+  document.querySelector("#btn-guardar").classList="d-none";
   userModal.show()
 };
+// funcion para editar el usuario
+const editUser = (index)=>{
+  document.querySelector("#btn-guardar").classList="btn btn-primary";
+  document.querySelector("#titulouserModalLabel").innerHTML=`<h5><b>Datos del usuario</b>`
+//   document.querySelector("#bodyuserModal").innerHTML=``
+// userModal.show()}
+  document.querySelector("#bodyuserModal").innerHTML=`
+<form id="userForm">
+              <div class="mb-3">
+                <div
+                  id="avatar"
+                  style="width: 50px; height: 50px; overflow: hidden"
+                >
+                  <img
+                    id="avatarPreview"
+                    src=""
+                    alt="Avatar"
+                    style="max-width: 100%; max-height: 100%"
+                  />
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nombre"
+                  name="nombre"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input
+                  type="pass"
+                  class="form-control"
+                  id="password"
+                  name="password"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="codigoSeguridad" class="form-label"
+                  >Código de Seguridad</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="codigoSeguridad"
+                  name="codigoSeguridad"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="admin" class="form-label">Estado de Admin</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="admin"
+                  name="admin"
+                  required
+                />
+              </div>
+            </form>`
+  document.querySelector("#nombre").value = usuarios[index].username;
+  document.querySelector("#email").value = usuarios[index].email;
+  document.querySelector("#password").value = usuarios[index].pass;
+  document.querySelector("#codigoSeguridad").value = usuarios[index].code;
+  document.querySelector("#admin").value = usuarios[index].admin;
+  document.querySelector("#avatarPreview").src=usuarios[index].avatar;
+            userModal.show()
+            posicionUsuario = index;
+            console.log(`${posicionUsuario}`)
+}
 
+// función para guardar las modificaciones
+// Función para editar y guardar el usuario
+const saveUser = () => {
+  // Obtén el arreglo original users de la local storage
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+
+  // Actualiza los datos del usuario en el arreglo users
+  users[posicionUsuario].username = document.querySelector("#nombre").value;
+users[posicionUsuario].email = document.querySelector("#email").value;
+users[posicionUsuario].pass = document.querySelector("#password").value;
+users[posicionUsuario].code = document.querySelector("#codigoSeguridad").value;
+users[posicionUsuario].admin = document.querySelector("#admin").value;
+users[posicionUsuario].carshop = []
+  // Guarda el arreglo actualizado en la local storage bajo la clave "users"
+  localStorage.setItem("users", JSON.stringify(users));
+
+  alert("Los datos del usuario se han actualizado correctamente");
+
+  // Cierra el modal
+  userModal.hide();
+
+  // Vuelve a mostrar la lista de usuarios actualizada
+  location.reload()
+};
+
+// Agrega un evento de clic al botón "Guardar"
+const guardarButton = document.querySelector("#btn-guardar");
+guardarButton.addEventListener("click", saveUser);
+
+  // document.querySelector("#titulouserModalLabel")
+  // document.querySelector("#nombre").value = usuarios[index].username;
+  // document.querySelector("#email").value = usuarios[index].email;
+  // document.querySelector("#password").value = usuarios[index].password;
+  // document.querySelector("#codigoSeguridad").value = usuarios[index].code;
+  // document.querySelector("#admin").value = usuarios[index].admin;
+  // document.querySelector("#avatarPreview").src=usuarios[index].avatar;
 
 
 
