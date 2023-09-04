@@ -263,8 +263,6 @@ const readUser = (index) => {
 const editUser = (index)=>{
   document.querySelector("#btn-guardar").classList="btn btn-primary";
   document.querySelector("#titulouserModalLabel").innerHTML=`<h5><b>Datos del usuario</b>`
-//   document.querySelector("#bodyuserModal").innerHTML=``
-// userModal.show()}
   document.querySelector("#bodyuserModal").innerHTML=`
 <form id="userForm">
               <div class="mb-3">
@@ -323,21 +321,19 @@ const editUser = (index)=>{
                 />
               </div>
               <div class="mb-3">
-                <label for="admin" class="form-label">Estado de Admin</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="admin"
-                  name="admin"
-                  required
-                />
+              <label for="admin" class="form-label"
+                  >Estado de Admin</label
+                >
+                               <select class="form-select" id="adminstatus" aria-label="Default select example">
+  <option value="secundario">Secundario</option>
+  <option value="false">No es Admin</option>
+</select>
               </div>
             </form>`
   document.querySelector("#nombre").value = usuarios[index].username;
   document.querySelector("#email").value = usuarios[index].email;
   document.querySelector("#password").value = usuarios[index].pass;
   document.querySelector("#codigoSeguridad").value = usuarios[index].code;
-  document.querySelector("#admin").value = usuarios[index].admin;
   document.querySelector("#avatarPreview").src=usuarios[index].avatar;
             userModal.show()
             posicionUsuario = index;
@@ -355,7 +351,7 @@ const saveUser = () => {
 users[posicionUsuario].email = document.querySelector("#email").value;
 users[posicionUsuario].pass = document.querySelector("#password").value;
 users[posicionUsuario].code = document.querySelector("#codigoSeguridad").value;
-users[posicionUsuario].admin = document.querySelector("#admin").value;
+users[posicionUsuario].admin = document.querySelector("#adminstatus").value;
 users[posicionUsuario].carshop = []
   // Guarda el arreglo actualizado en la local storage bajo la clave "users"
   localStorage.setItem("users", JSON.stringify(users));
