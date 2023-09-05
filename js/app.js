@@ -22,6 +22,11 @@ else{
   closeuser.classList= "d-none"
 }
 
+
+if (auth.admin === "master" || auth.admin === "secundario") {
+  document.querySelector("#search").classList="d-none"
+document.querySelector("#buttoncart").classList="d-none"
+  }
 //DECLARO FUNCION PARA CERRAR SESION
 closeuser.addEventListener("click", () => {
   closesesion();
@@ -80,7 +85,12 @@ savechange.addEventListener("click", function () {
 
 //Abre modal de perfil
 avatar.addEventListener("click", () => {
-  miPerfil();
+  if (auth.admin === "master" || auth.admin === "secundario") {
+    window.location.href = "../pages/admin.html";
+  } else {
+    // Si no es administrador, realiza otra acción (por ejemplo, abre 'miPerfil()')
+    miPerfil();
+  }
 });
 
 const carritomodal = new bootstrap.Modal(document.getElementById('carritoModal'))
