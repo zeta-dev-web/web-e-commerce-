@@ -1,11 +1,12 @@
 import {productos} from "./clases.js"
+import { CarShop } from "./clases.js"
 
 let acerCard=document.getElementById("acerCard")
-
+let auth = JSON.parse(localStorage.getItem("auth")) || null
 
 const cargarCards= ()=>{
     acerCard.innerHTML=""
-    let acerProd=productos.filter((producto)=>producto.marca=="HP") 
+    let acerProd=productos.filter((producto)=>producto.marca=="Hp") 
     console.log(acerProd)
     acerProd.map((producto)=>{
     let col=document.createElement("div") 
@@ -37,6 +38,16 @@ const cargarCards= ()=>{
     cart.id="cart"
     cart.classList="btn btn-primary catcard cat-btn"
     cart.innerText="Agregar al carrito"
+     const productoData = {
+        id: producto.id,
+        cantidad: 1,
+        imagen: producto.imagen,
+        marca: producto.marca,
+        precio: producto.precio
+      };
+    cart.addEventListener("click", () => {
+      agregarCarrito(productoData); // Llama a la función agregarCarrito con el producto como argumento
+    });
     col.append(card)
     card.append(imgCard)
     card.append(labelTop)
@@ -48,7 +59,41 @@ const cargarCards= ()=>{
     cardBody.append(textCenter)
     textCenter.append(cart)
 acerCard.append(col)
-
     })  
+
+    const carritomodal = new bootstrap.Modal(document.getElementById('carritoModal'))
+
+
+//este codigo debe ir junto con las tarjetas que ejecuta la funcion agregar producto al carrito
+window.agregarCarrito = (producto) => {
+  // Crea un nuevo objeto CarShop
+  const addcarshop = new CarShop(producto.id, 1, producto.imagen, producto.marca, producto.precio);
+
+  // Verifica si el producto ya está en el carrito
+  let productoExistente = null;
+  for (const productoCarrito of auth.carshop) {
+    if (productoCarrito.id === addcarshop.id) {
+      productoExistente = productoCarrito;
+      break; // Detén el bucle si se encuentra una coincidencia
+    }
+  }
+
+ if (productoExistente) {
+    // Si el producto ya está en el carrito, incrementa la cantidad
+    productoExistente.cantidad++;
+  } else {
+    // Si el producto no está en el carrito, agrégalo como nuevo elemento
+    addcarshop.cantidad = 1; // Inicializa la cantidad en 1
+    auth.carshop.push(addcarshop);
+  }
+
+  // Actualiza el contenido de auth en la local storage
+  localStorage.setItem('auth', JSON.stringify(auth));
+   alert('Producto agregado al carrito');
+};
+
+
+// Verifica el contenido de auth.carshop
+console.log(auth.carshop);
 }
 cargarCards()

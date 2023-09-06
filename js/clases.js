@@ -1,19 +1,17 @@
 class Producto {
-    constructor(nombre,precio,marca,imagen,descripcion,stock){
-        this.id = Producto.getNextId()
-        this.nombre=nombre
-        this.precio=precio
-        this.marca=marca
-        this.imagen=imagen
-        this.descripcion=descripcion
-        this.stock=stock
-    }
-    static getNextId() {
-        if (!this.nextId) {
-          this.nextId = 1;
-        }
-        return this.nextId++;
-      }
+  static nextId = 1; // Inicializa nextId como 1
+
+  constructor(nombre, precio, marca, imagen, descripcion, stock) {
+    this.id = Producto.nextId.toString(); // Asigna el ID al crear una instancia y lo convierte en cadena
+    this.nombre = nombre;
+    this.precio = precio;
+    this.marca = marca;
+    this.imagen = imagen;
+    this.descripcion = descripcion;
+    this.stock = stock;
+
+    Producto.nextId++; // Incrementa nextId para la próxima instancia
+  }
 }
 const productos=JSON.parse(localStorage.getItem("productos")) ||[]
 export {Producto,productos}
