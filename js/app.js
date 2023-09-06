@@ -8,24 +8,33 @@ avatar = document.getElementById('avatar'),
 users = JSON.parse(localStorage.getItem("users")),
 login = document.querySelector("#login"),
 productos = JSON.parse(localStorage.getItem("productos")),
-buttoncart = document.querySelector("#buttoncart")
-
+buttoncart = document.querySelector("#buttoncart"),
+avatarnav2 =document.querySelector("#avatarnav2"),
+avatarnavimg =document.querySelector("#avatarnavimg")
 
 //SI EL USUARIO ESTA LOGUEADO OCULTO EL PAGE LOGIN Y MUESTRO AVATAR Y BOTON CERRAR SESION
 
 if (auth) {
-  login.classList="d-none"
+
+  login.innerHTML=`<a id="cerrarSesionLink" class="nav-link" href="./pages/login.html">Cerrar Sesión</a>`
+  login.classList=`d-xl-none d-lg-none`
   avatar.src = auth.avatar
+avatarnav2.classList=`d-xl-none d-lg-none`
+avatarnavimg.src=auth.avatar
+avatarnavimg.width=35
+ avatarnavimg.height=35
 }
 else{
   useravatar.classList="d-none"
   closeuser.classList= "d-none"
+  avatarnav2.classList="d-none"
 }
-
 
 if (auth.admin === "master" || auth.admin === "secundario") {
   document.querySelector("#search").classList="d-none"
 document.querySelector("#buttoncart").classList="d-none"
+document.querySelector("#adminpage").classList="nav-item"
+document.querySelector("#miPerfilLink").classList="d-none"
   }
 //DECLARO FUNCION PARA CERRAR SESION
 closeuser.addEventListener("click", () => {
@@ -37,6 +46,12 @@ auth = null
 localStorage.removeItem("auth")
 location.reload()
 }
+
+// agrego funcion a cerrar sesion en dispositivos pequeños
+document.getElementById('cerrarSesionLink').addEventListener("click", function(event) {
+  event.preventDefault();
+    closesesion()
+});
 
 //MODAL DEL PERFIL
 let titulobody = document.querySelector("#titulo-body")
@@ -92,6 +107,18 @@ avatar.addEventListener("click", () => {
     miPerfil();
   }
 });
+
+//abre modal en dispositivos pequeños
+// Agrega un evento de clic al enlace "Iniciar Sesión"
+document.getElementById('miPerfilLink').addEventListener("click", function(event) {
+  event.preventDefault();
+    if (auth.admin === "master" || auth.admin === "secundario") { 
+    window.location.href = "../pages/admin.html";} else {
+    miPerfil();
+}});
+
+
+//carrito
 
 const carritomodal = new bootstrap.Modal(document.getElementById('carritoModal'))
 
