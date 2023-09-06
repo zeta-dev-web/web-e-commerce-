@@ -81,7 +81,7 @@
                         type="button" class="btn btn-light m-2 d-none d-md-none d-lg-block">
                             Cerrar sesion
                         </button>
-                    <form class="d-flex" role="search">
+                    <form id="search" class="d-flex" role="search">
                         <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" />
                         <button class="btn btn-outline-light" type="submit">
                             <i class="fa fa-search" aria-hidden="true"></i>
@@ -191,6 +191,29 @@
       </div>
     </div>
   </div>
+  <!-- modal del carrito -->
+  <div class="modal fade" id="carritoModal" tabindex="-1" aria-labelledby="carritoModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Mi Carrito 🛒</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div id="carrito-body"
+        class="modal-body d-flex flex-col">
+        <div class="col-4" id="img-up">
+        </div>
+        <div class="col-4 mt-4" id="name-product">
+        </div>
+            </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button id="pay" type="button" class="btn btn-danger">Comprar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+        </div>
     <!-- Modal -->
     <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -232,6 +255,6 @@
         crossorigin="anonymous"></script>
     <script src="https://use.fontawesome.com/c2813ccf5b.js"></script>
     <script src="/js/frontPage.js" type="module"></script>
-     <script src="/js/app.js"></script>
+    <script type="module" src="/js/app.js"></script>    
 </body>
 </html>

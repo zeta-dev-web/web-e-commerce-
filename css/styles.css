@@ -6,6 +6,10 @@
   padding: 0;
   font-family: "Open Sans", sans-serif;
 }
+body {
+  padding-bottom: 70px;
+}
+
 .titulo {
   color: white;
   text-decoration: none;
@@ -21,13 +25,12 @@
   height: 50px;
 }
 
-
 /* Nav color */
 .color {
   background-color: #007bff;
 }
 
-#avatar{
+#avatar {
   width: 50px;
   height: 50px;
 }
@@ -88,7 +91,7 @@
 /* Footer */
 
 .footer-container {
-  min-width: 50%;
+  width: 100%;
 }
 
 .color {
@@ -502,9 +505,14 @@ h6 span {
 }
 
 .card-text {
-    font-size: 10px;
-} 
+  font-size: 10px;
+}
 
-table tr td{
-    vertical-align: middle;
+table tr td {
+  vertical-align: middle;
+}
+
+#imgcar {
+  width: 100px;
+  height: 100px;
 }

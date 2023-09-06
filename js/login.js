@@ -31,13 +31,14 @@ localStorage.setItem("admin", JSON.stringify(admin));
   loginUser();
 });
 
-const updateAuth = (user, email, avatar, pass, admin) => { //funcion para guardar el inicio de sesion
+const updateAuth = (user, email, avatar, pass, admin, []) => { //funcion para guardar el inicio de sesion
   auth = {
     user: user,
     email: email,
     avatar: avatar,
     pass: pass,
     admin: admin,
+    carshop: [],
   };
   localStorage.setItem("auth", JSON.stringify(auth));
 };
@@ -79,7 +80,7 @@ const loginUser = () => {
   errorlogin.innerHTML = alertHTML;
   errorlogin.classList = "mt-2";
   errorlogin.role = "alert";
-   updateAuth(admin.username, admin.email, admin.avatar, admin.pass, "master");
+   updateAuth(admin.username, admin.email, admin.avatar, admin.pass, "master", []);
   // Limpiar el mensaje de alerta y redirigir después de 4 segundos
   setTimeout(() => {
     errorlogin.innerHTML = "";
@@ -92,7 +93,7 @@ const loginUser = () => {
 } else {
     for (const user of users) {
       if (user.email === email && user.pass === pass) { 
-        if (user.admin) { //verifico si es admin secundario
+        if (user.admin==="secundario") { //verifico si es admin secundario
           const alertHTML = `
     <div>
       Iniciando sesion como administrador secundario
@@ -104,7 +105,7 @@ const loginUser = () => {
   errorlogin.innerHTML = alertHTML;
   errorlogin.classList = "mt-2";
   errorlogin.role = "alert";
- updateAuth(user.username, user.email, user.avatar, user.pass, "secundario");
+ updateAuth(user.username, user.email, user.avatar, user.pass, "secundario", []);
   // Limpiar el mensaje de alerta y redirigir después de 4 segundos
   setTimeout(() => {
     errorlogin.innerHTML = "";
@@ -126,7 +127,7 @@ const loginUser = () => {
   errorlogin.innerHTML = alertHTML;
   errorlogin.classList = "mt-2";
   errorlogin.role = "alert";
- updateAuth(user.username, user.email, user.avatar, user.pass, "false");
+ updateAuth(user.username, user.email, user.avatar, user.pass, "false", user.carshop);
   // Limpiar el mensaje de alerta y redirigir después de 4 segundos
   setTimeout(() => {
     errorlogin.innerHTML = "";
