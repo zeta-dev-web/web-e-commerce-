@@ -191,3 +191,23 @@ const miCarrito = () => {
 
   carritomodal.show();
 };
+
+// buscador
+let searchinput = document.querySelector("#searchinput")
+let btnsearch = document.querySelector("#btnsearch")
+
+// Agrega un controlador de eventos para el clic en el botón de búsqueda
+btnsearch.addEventListener("click", function(event) {
+    event.preventDefault(); // Evita que el formulario se envíe
+
+    // Obtén el valor del campo de búsqueda
+    const query = searchinput.value;
+
+    // Verifica si la consulta no está vacía
+    if (query.trim() !== "") {
+        // Redirige a la nueva página y pasa la consulta como parte de la URL
+        window.location.href = `pages/search.html?query=${query}`;
+    } else {
+        alert("Por favor, ingrese una consulta válida.");
+    }
+});

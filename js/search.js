@@ -3,12 +3,29 @@ import { CarShop } from "./clases.js"
 
 let acerCard=document.getElementById("acerCard")
 let auth = JSON.parse(localStorage.getItem("auth")) || null
+let queryString = window.location.search
 
+// Función para obtener el valor de un parámetro en la cadena de consulta
+const getQueryParam=(paramName)=> {
+    const params = new URLSearchParams(queryString);
+    return params.get(paramName);
+}
 
-const cargarCards= ()=>{
-    acerCard.innerHTML=""
-    let acerProd=productos.filter((producto)=>producto.marca=="Msi")
-    acerProd.map((producto)=>{
+// Captura la consulta de búsqueda de la URL
+const query = getQueryParam('query');
+
+const cargarCards = () => {
+    acerCard.innerHTML = "";
+
+    // Filtra productos por marca o nombre que contenga la consulta
+    const productosFiltrados = productos.filter((producto) => {
+        const marcaCoincide = producto.marca.toLowerCase().includes(query.toLowerCase());
+        const nombreCoincide = producto.nombre.toLowerCase().includes(query.toLowerCase());
+
+        // Devuelve true si la marca o el nombre coinciden con la consulta
+        return marcaCoincide || nombreCoincide;
+    });
+    productosFiltrados.map((producto) => {
     let col=document.createElement("div") 
     col.classList="col"
     let card=document.createElement("card")

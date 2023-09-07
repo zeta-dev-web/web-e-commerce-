@@ -8,7 +8,6 @@ let auth = JSON.parse(localStorage.getItem("auth")) || null
 const cargarCards= ()=>{
     acerCard.innerHTML=""
     let acerProd=productos.filter((producto)=>producto.marca=="Acer") 
-    console.log(acerProd)
     acerProd.map((producto)=>{
     let col=document.createElement("div") 
     col.classList="col"
@@ -92,9 +91,5 @@ window.agregarCarrito = (producto) => {
   localStorage.setItem('auth', JSON.stringify(auth));
    alert('Producto agregado al carrito');
 };
-
-
-// Verifica el contenido de auth.carshop
-console.log(auth.carshop);
 }
 cargarCards()
