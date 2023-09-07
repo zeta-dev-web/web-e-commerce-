@@ -154,9 +154,13 @@ window.agregarCarrito = () => {
 // Verifica el contenido de auth.carshop
 console.log(auth.carshop);
 
-
-//abre modal de carrito
+//abre modal de carrito desde el boton del nav
 buttoncart.addEventListener("click", () => {
+  miCarrito();
+});
+//abre modal de carrito desde el boton flotante en dispositivos moviles
+let cartfloat=document.querySelector("#cartfloat")
+cartfloat.addEventListener("click", () => {
   miCarrito();
 });
 

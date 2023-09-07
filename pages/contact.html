@@ -196,38 +196,38 @@
         </section>
     </footer>
     <!-- Modal -->
-    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header color texto-color">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">
-                        Suscríbete
-                    </h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="row">
-                            <div class="col-10">
-                                <label for="nombre">Nombre completo:</label>
-                                <input type="text" id="nombre" name="nombre" required placeholder="Carolina Juarez">
-                                <br><br>
-                                <label for="correo">Correo electrónico:</label>
-                                <input type="email" id="correo" name="email" required placeholder="name@example.com">
-                                </label>
-                                <br>
-                                <br>
-                                <div class="d-flex justify-content-end">
-                                    <button class="btn btn-primary btn-form mb-2">
-                                        Enviar
-                                    </button>
-                                </div>
-                                <br>
-                            </div>
-                    </form>
-                </div>
+    <div
+      class="modal fade"
+      id="modal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-danger texto-color">
+            <h1 class="modal-title fs-5 bg-danger" id="exampleModalLabel">Formulario de Suscripcion</h1>
+            <button
+              type="button btn btn-dark"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+             <div class="input-group mb-3">
+  <input type="text" class="form-control" placeholder="Nombre Completo" aria-label="email" aria-describedby="basic-addon2">
+  <span class="input-group-text" id="basic-addon2">Juan Perez</span>
+</div>
+            <div class="input-group mb-3">
+  <input type="text" class="form-control" placeholder="Email" aria-label="email" aria-describedby="basic-addon2">
+  <span class="input-group-text" id="basic-addon2">rolling@example.com</span>
             </div>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <button class="btn btn-danger" type="button">Suscribirse</button>
+</div>
         </div>
+      </div>
     </div>
     <!-- scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
