@@ -7,7 +7,7 @@ let auth = JSON.parse(localStorage.getItem("auth")) || null
 
 const cargarCards= ()=>{
     acerCard.innerHTML=""
-    let acerProd=productos.filter((producto)=>producto.marca=="Msi")
+    let acerProd=productos.filter((producto)=>producto.marca=="msi")
     acerProd.map((producto)=>{
     let col=document.createElement("div") 
     col.classList="col"
