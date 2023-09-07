@@ -172,46 +172,92 @@ const miCarrito = () => {
     carritobody.innerHTML = '<h5 class="font-weight-bold">No posee productos agregados al 🛒</h5>';
   } else {
     // Si el arreglo no está vacío, genera la tabla
-   // Tu código existente para generar la tabla
-let tablaHTML = '<table class="table"><thead><tr><th class="text-center">CANTIDAD</th><th>FOTO</th><th>MARCA</th><th>PRECIO</th></tr></thead><tbody>';
-  
-auth.carshop.forEach(function (producto, index) {
-  let tablacarrito = `<tr>
-    <td class="text-center">
-      <button class="buttonadd">+</button>
-      ${producto.cantidad}
-      <button class="buttonrem">-</button>
-    </td>
-    <td><img src="${producto.imagen}" alt="modelo" width="50" height="50"></td>
-    <td>${producto.marca}</td>
-    <td>$${producto.precio}</td>
-  </tr>`;
-  tablaHTML += tablacarrito;
-});
+   // Función para generar y mostrar la tabla en el modal
+const mostrarTablaEnModal = () => {
+  let tablaHTML = '<table class="table"><thead><tr><th class="text-center">CANTIDAD</th><th>FOTO</th><th>MARCA</th><th>PRECIO</th></tr></thead><tbody>';
 
-// Calcular el total de la columna "PRECIO"
-let totalPrecio = 0;
-auth.carshop.forEach(function (producto) {
-  totalPrecio += parseFloat(producto.precio);
-});
+  auth.carshop.forEach(function (producto, index) {
+    let tablacarrito = `<tr>
+      <td class="text-center">
+        <button class="buttonrem btn btn-sm btn-danger" data-index="${index}">-</button>
+        <span>${producto.cantidad}</span>
+        <button class="buttonadd btn btn-sm btn-success" data-index="${index}">+</button>
+      </td>
+      <td><img src="${producto.imagen}" alt="modelo" width="50" height="50"></td>
+      <td>${producto.marca}</td>
+      <td>$${producto.precio}</td>
+    </tr>`;
+    tablaHTML += tablacarrito;
+  });
 
-// Redondear el total a cero decimales
-totalPrecio = totalPrecio.toFixed(0);
+  // Calcular el total de la columna "PRECIO"
+  let totalPrecio = 0;
+  auth.carshop.forEach(function (producto) {
+    totalPrecio += parseFloat(producto.precio);
+  });
 
-// Agregar una fila al final de la tabla con el total
-tablaHTML += `<tr>
-  <td></td>
-  <td></td>
-  <td class="text-primary fs-4"><b>Total:</br></td>
-  <td class="text-primary fs-4">$${totalPrecio}</td>
-</tr></tbody></table>`;
+  // Redondear el total a cero decimales
+  totalPrecio = totalPrecio.toFixed(0);
 
-    
-    // Agrega la tabla generada al div con id "carrito-body"
-    carritobody.innerHTML = tablaHTML;
+  // Agregar una fila al final de la tabla con el total
+  tablaHTML += `<tr>
+    <td></td>
+    <td></td>
+    <td class="text-primary fs-4"><b>Total:</br></td>
+    <td class="text-primary fs-4">$${totalPrecio}</td>
+  </tr></tbody></table>`;
+
+  // Agrega la tabla generada al div con id "carrito-body"
+  carritobody.innerHTML = tablaHTML;
+
+  // Obtener todos los botones de incrementar y decrementar cantidad
+  const buttonrem = document.querySelectorAll(".buttonrem");
+  const buttonadd = document.querySelectorAll(".buttonadd");
+  const cantidadSpan = document.querySelectorAll(".text-center span");
+
+  // Agregar eventos a los botones para modificar la cantidad
+  buttonrem.forEach((btn, index) => {
+    btn.addEventListener("click", () => {
+      const dataIndex = btn.getAttribute("data-index");
+      if (auth.carshop[dataIndex].cantidad > 1) {
+        auth.carshop[dataIndex].cantidad--;
+        cantidadSpan[dataIndex].textContent = auth.carshop[dataIndex].cantidad;
+        localStorage.setItem('auth', JSON.stringify(auth));
+        // Llama a la función para actualizar la tabla
+        mostrarTablaEnModal();
+      }
+      else {
+      // Si la cantidad es 1, mostrar un alert de confirmación
+      const confirmarEliminar = confirm("¿Seguro que deseas eliminar este producto?");
+      if (confirmarEliminar) {
+        // Elimina el producto del arreglo carshop
+        auth.carshop.splice(dataIndex, 1);
+        localStorage.setItem('auth', JSON.stringify(auth));
+        // Llama a la función para actualizar la tabla
+        mostrarTablaEnModal();
+      }
+    }
+    });
+  });
+
+  buttonadd.forEach((btn, index) => {
+    btn.addEventListener("click", () => {
+      const dataIndex = btn.getAttribute("data-index");
+      auth.carshop[dataIndex].cantidad++;
+      cantidadSpan[dataIndex].textContent = auth.carshop[dataIndex].cantidad;
+      localStorage.setItem('auth', JSON.stringify(auth));
+      // Llama a la función para actualizar la tabla
+      mostrarTablaEnModal();
+    });
+  });
+};
+
+// Llama a la función para generar y mostrar la tabla en el modal inicialmente
+mostrarTablaEnModal();
+
+// Abre el modal
+carritomodal.show();
   }
-
-  carritomodal.show();
 };
 
 // buscador

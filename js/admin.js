@@ -355,9 +355,9 @@ admin.pass = document.querySelector("#password").value;
 
 // ------------------------ USUARIOS ----------------------
   // Verifica si hay usuarios para mostrar
-  if (usuarios.length === 0) {
-    // No hay usuarios, muestra un mensaje
-    usuariosTableBody.innerHTML = '<tr><td colspan="8">No hay usuarios registrados.</td></tr>';
+  if (usuarios.length === 0 && admin === 0) {
+    // No hay usuarios
+    usuariosTableBody.innerHTML = '<tr><td colspan="8">No hay usuarios registrados ni administrador.</td></tr>';
 
   } else {
 
