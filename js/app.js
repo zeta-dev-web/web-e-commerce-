@@ -119,57 +119,17 @@ document.getElementById('miPerfilLink').addEventListener("click", function(event
 
 
 //carrito
-
 const carritomodal = new bootstrap.Modal(document.getElementById('carritoModal'))
 
-
-//este codigo debe ir junto con las tarjetas que ejecuta la funcion agregar producto al carrito
-window.agregarCarrito = () => {
-  // Crea un nuevo objeto CarShop
-  const addcarshop = new CarShop(1, 1, "https://www.cordobanotebooks.com.ar/wp-content/uploads/2023/04/NP750XDA-KD1US4.jpg", "LENOVO", 150000);
-
-  // Verifica si el producto ya está en el carrito
-  let productoExistente = null;
-  for (const producto of auth.carshop) {
-    if (producto.id === addcarshop.id) {
-      productoExistente = producto;
-      break; // Detén el bucle si se encuentra una coincidencia
-    }
-  }
-
-  if (productoExistente) {
-    // Si el producto ya está en el carrito, incrementa la cantidad
-    productoExistente.cantidad++;
-  } else {
-    // Si el producto no está en el carrito, agrégalo como nuevo elemento
-    addcarshop.cantidad = 1; // Inicializa la cantidad en 1
-    auth.carshop.push(addcarshop); // Agrega el objeto completo, no solo su cantidad
-  }
-
-  // Actualiza el contenido de auth en la local storage
-  localStorage.setItem('auth', JSON.stringify(auth));
-};
-
-
-// Verifica el contenido de auth.carshop
-console.log(auth.carshop);
-
-//abre modal de carrito desde el boton del nav
-buttoncart.addEventListener("click", () => {
-  miCarrito();
-});
-//abre modal de carrito desde el boton flotante en dispositivos moviles
-let cartfloat=document.querySelector("#cartfloat")
-cartfloat.addEventListener("click", () => {
-  miCarrito();
-});
-
 const miCarrito = () => {
+  console.log("el carrito si abre")
+  let totalPrecio = 0;
   let carritobody = document.querySelector("#carrito-body");
-  
+  let auth = JSON.parse(localStorage.getItem("auth"))
   if (auth.carshop.length === 0) {
     // Si el arreglo está vacío, muestra un mensaje
     carritobody.innerHTML = '<h5 class="font-weight-bold">No posee productos agregados al 🛒</h5>';
+    carritomodal.show()
   } else {
     // Si el arreglo no está vacío, genera la tabla
    // Función para generar y mostrar la tabla en el modal
@@ -185,7 +145,7 @@ const mostrarTablaEnModal = () => {
       </td>
       <td><img src="${producto.imagen}" alt="modelo" width="50" height="50"></td>
       <td>${producto.marca}</td>
-      <td>$${producto.precio}</td>
+      <td>$${producto.precio*producto.cantidad}</td>
     </tr>`;
     tablaHTML += tablacarrito;
   });
@@ -193,7 +153,7 @@ const mostrarTablaEnModal = () => {
   // Calcular el total de la columna "PRECIO"
   let totalPrecio = 0;
   auth.carshop.forEach(function (producto) {
-    totalPrecio += parseFloat(producto.precio);
+    totalPrecio += parseFloat(producto.precio)*(producto.cantidad);
   });
 
   // Redondear el total a cero decimales
@@ -216,7 +176,8 @@ const mostrarTablaEnModal = () => {
   const cantidadSpan = document.querySelectorAll(".text-center span");
 
   // Agregar eventos a los botones para modificar la cantidad
-  buttonrem.forEach((btn, index) => {
+  //eliminar
+  buttonrem.forEach((btn) => {
     btn.addEventListener("click", () => {
       const dataIndex = btn.getAttribute("data-index");
       if (auth.carshop[dataIndex].cantidad > 1) {
@@ -235,12 +196,13 @@ const mostrarTablaEnModal = () => {
         localStorage.setItem('auth', JSON.stringify(auth));
         // Llama a la función para actualizar la tabla
         mostrarTablaEnModal();
+        miCarrito()
       }
     }
     });
   });
-
-  buttonadd.forEach((btn, index) => {
+  //boton agregar
+  buttonadd.forEach((btn) => {
     btn.addEventListener("click", () => {
       const dataIndex = btn.getAttribute("data-index");
       auth.carshop[dataIndex].cantidad++;
@@ -259,6 +221,16 @@ mostrarTablaEnModal();
 carritomodal.show();
   }
 };
+
+//abre modal de carrito desde el boton del nav
+buttoncart.addEventListener("click", () => {
+  miCarrito();
+});
+//abre modal de carrito desde el boton flotante en dispositivos moviles
+let cartfloat=document.querySelector("#cartfloat")
+cartfloat.addEventListener("click", () => {
+  miCarrito();
+});
 
 // buscador
 let searchinput = document.querySelector("#searchinput")

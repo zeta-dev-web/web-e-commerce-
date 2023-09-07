@@ -1,30 +1,27 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="description" content="Venta de notebook" />
-    <meta name="author" content="LLAM" />
-    <meta name="keywords" content="notebook, maquinas, suscripcion" />
+    <meta name="author" content="STORE NOTE" />
+    <meta name="keywords" content="notebook, maquinas, laptops, shop, store, tienda" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="../assets/favicon.png" type="favicon/png" />
-
-    <title>L-L-A-M Informática</title>
+    <link rel="shortcut icon" href="./assets/favicon.png" type="favicon/png" />
+    <title>Store NOTE 💻</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
     <link rel="stylesheet" href="/css/styles.css" />
 </head>
-
-<body class="vh-100 d-flex flex-column color-sec">
-    <header class="fixed">
-     <nav class="navbar navbar-expand-lg navbar-dark color">
+<body class="color-sec p-0 m-0">
+    <header class="fixed w-100">
+        <nav class="navbar navbar-expand-lg navbar-dark color">
             <div class="container-fluid text-center">
-                <a class="navbar-brand" href="../index.html">
-                    <img src="../assets/logo 3.png" alt="Logo de L-L-A-M" />
+                 <a class="navbar-brand" href="../index.html">
+                    <img src="../assets/logo 3.png" alt="Logo de STORE" />
                 </a>
                 <div class="d-sm-block d-lg-none">
-                    <h1 class="titulo fs-3">LLAM INFORMATICA</h1>
+                    <h1 class="titulo fs-3">Store NOTE 💻</h1>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -37,12 +34,17 @@
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="../index.html">Inicio</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../pages/login.html">Iniciar Sesión</a>
+                        <li id="avatarnav2" class="nav-item"><div class="d-flex justify-content-center">                                            
+<img id="avatarnavimg" src="" alt="avatarnav"><a id="miPerfilLink" class="nav-link ms-2" href="./pages/login.html">Mi Perfil</a></div>
                         </li>
-                        
+                        <li id="adminpage" class="nav-item d-none">                                            
+                            <a class="nav-link" href="./admin.html">Panel Admin</a>
+                        </li>
+                        <li id="login" class="nav-item">                                            
+                            <a class="nav-link" href="./login.html">Iniciar Sesión</a>
+                        </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../pages/contact.html">Contactarse</a>
+                            <a class="nav-link" href="./contact.html">Contactarse</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="#">Acerca de Nosotros</a>
@@ -55,30 +57,41 @@
                                         Marcas
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-dark color text-center">
-                                        <li><a class="dropdown-item" href="../pages/acer.html">Acer</a></li>
-                                        <li><a class="dropdown-item" href="../pages/asus.html">Asus</a></li>
-                                        <li><a class="dropdown-item" href="../pages/hp.html">Hp</a></li>
-                                        <li><a class="dropdown-item" href="../pages/msi.html">Msi</a></li>
+                                        <li><a class="dropdown-item" href="./acer.html">Acer</a></li>
+                                        <li><a class="dropdown-item" href="./asus.html">Asus</a></li>
+                                        <li><a class="dropdown-item" href="./hp.html">Hp</a></li>
+                                        <li><a class="dropdown-item" href="./msi.html">Msi</a></li>
                                     </ul>
                                 </li>
                             </ul>
                         </div>
                     </ul>
-                    <a href="../pages/error404.html">
-                        <button type="button" class="btn btn-light m-2 d-none d-md-none d-lg-block">
+                    <div id="user-avatar">
+                        <button type="button" class="btn m-1 d-none d-md-none d-lg-block">
+                            <img id="avatar"
+                            src="" alt="Avatar 1" />
+                        </button>
+                    </div>
+                    <div>
+                        <button type="button" id="buttoncart" class="btn btn-light m-1 d-none d-md-none d-lg-block">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                         </button>
-                    </a>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" />
-                        <button class="btn btn-outline-light" type="submit">
+                    </div>
+                    
+                        <button id="close-user"
+                        type="button" class="btn btn-light m-1 d-none d-md-none d-lg-block">
+                            Cerrar sesion
+                        </button>
+                    <form id="search" class="d-flex" role="search">
+                        <input id="searchinput" class="form-control me-1" type="search" placeholder="Buscar..." aria-label="Search" />
+                        <button id="btnsearch" class="btn btn-outline-light" type="submit">
                             <i class="fa fa-search" aria-hidden="true"></i>
                         </button>
                     </form>
                 </div>
             </div>
         </nav>
-        </header>
+    </header>
         <main class="container-fluid px-0">
                 <div class="col">
                     <img class="d-block w-100" src="../assets/acerca-de-nosotros.webp" alt="Acerca de nosotros">
@@ -125,17 +138,18 @@
             </div>
         </section>
         <div class="px-0 suscribirse" data-bs-toggle="modal" data-bs-target="#modal">
-            <img src="../assets/suscribirse.png" alt="logo store" />
-        </div>
-        <div class="wsp">
-            <a href="https://wa.me/" target="_blank">
-                <img
-                src="../assets/wsp.png"
-                alt="logo store"/>
-            </a>
-        </div>
+                <img src="../assets/suscribirse.png" alt="logo store" />
+            </div>
+            <div class="wsp">
+                <a href="https://wa.me/" target="_blank">
+                    <img src="../assets/wsp.png" alt="logo store" />
+                </a>
+            </div>
+             <div class="d-block d-md-block d-sm-none d-lg-none cartflot p-0 pe-6">
+                <img id="cartfloat" src="../assets/shopping-cart.png" alt="icono-cart">
+            </div>
     </main>
-    <footer class="container-fluid color d-flex flex-column justify-content-between ">
+     <footer class="container-fluid color d-flex flex-column justify-content-end align-items-end align-self-end">
         <section class="h-100 row py-2 flex-column flex-md-row align-items-md-center">
             <div class="col logo-footer text-center mb-3 logo-footer">
                 <img src="/assets/logo 3.png" alt="logo" />
@@ -160,6 +174,58 @@
             </div>
         </section>
     </footer>
+    <!-- Modal user -->
+<div class="modal fade" id="perfilModal" tabindex="-1" aria-labelledby="perfilModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="tituloModal">Mi Perfil </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div id="perfil-body"
+        class="modal-body">
+        <div> 
+            <div id="titulo-body">
+        </div>
+            <br></br>
+            <div id="change-email">
+            </div>
+            <label for="input" class="form-label">Ingrese el nuevo Email: </label>
+            <input type="email" id="inputEmail" class="form-control">
+            <label for="input" class="form-label">Ingrese su nueva contraseña: </label>
+            <input type="email" id="inputPassword" class="form-control">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button id="savechange" type="button" class="btn btn-primary">Guardar Cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal del carrito -->
+  <div class="modal fade" id="carritoModal" tabindex="-1" aria-labelledby="carritoModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Mi Carrito 🛒</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div id="carrito-body"
+        class="modal-body d-flex flex-col">
+        <div class="col-4" id="img-up">
+        </div>
+        <div class="col-4 mt-4" id="name-product">
+        </div>
+            </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button id="pay" type="button" class="btn btn-danger">Comprar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+        </div>
     <!-- Modal -->
    <div
       class="modal fade"
@@ -194,27 +260,11 @@
         </div>
       </div>
     </div>
+    <!-- scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
     <script src="https://use.fontawesome.com/c2813ccf5b.js"></script>
-    <script>
-        var alertPlaceholder = document.getElementById('liveAlertPlaceholder')
-        var alertTrigger = document.getElementById('liveAlertBtn')
-
-        function alert(message, type) {
-            var wrapper = document.createElement('div')
-            wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
-
-            alertPlaceholder.append(wrapper)
-        }
-
-        if (alertTrigger) {
-            alertTrigger.addEventListener('click', function () {
-                alert('Gracias! Tu consulta fue enviada con éxito.', 'success')
-            })
-        }
-    </script>
+    <script type="module" src="/js/app.js"></script>    
 </body>
-
 </html>

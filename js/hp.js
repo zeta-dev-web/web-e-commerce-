@@ -61,8 +61,6 @@ const cargarCards= ()=>{
 acerCard.append(col)
     })  
 
-    const carritomodal = new bootstrap.Modal(document.getElementById('carritoModal'))
-
 
 //este codigo debe ir junto con las tarjetas que ejecuta la funcion agregar producto al carrito
 window.agregarCarrito = (producto) => {
