@@ -81,12 +81,12 @@ const loginUser = () => {
   errorlogin.classList = "mt-2";
   errorlogin.role = "alert";
    updateAuth(admin.username, admin.email, admin.avatar, admin.pass, "master", []);
-  // Limpiar el mensaje de alerta y redirigir después de 4 segundos
+  // Limpiar el mensaje de alerta y redirigir después de 3 segundos
   setTimeout(() => {
     errorlogin.innerHTML = "";
     errorlogin.classList = "";
     location.replace("/pages/admin.html");
-  }, 4000);
+  }, 3000);
   isLoggedIn = true;
   isAdmin = true;
   return;
@@ -106,12 +106,12 @@ const loginUser = () => {
   errorlogin.classList = "mt-2";
   errorlogin.role = "alert";
  updateAuth(user.username, user.email, user.avatar, user.pass, "secundario", []);
-  // Limpiar el mensaje de alerta y redirigir después de 4 segundos
+  // Limpiar el mensaje de alerta y redirigir después de 3 segundos
   setTimeout(() => {
     errorlogin.innerHTML = "";
     errorlogin.classList = "";
     location.replace("/pages/admin.html");
-  }, 4000);
+  }, 3000);
   isLoggedIn = true;
   isAdmin = true;
   return;
@@ -128,12 +128,12 @@ const loginUser = () => {
   errorlogin.classList = "mt-2";
   errorlogin.role = "alert";
  updateAuth(user.username, user.email, user.avatar, user.pass, "false", user.carshop);
-  // Limpiar el mensaje de alerta y redirigir después de 4 segundos
+  // Limpiar el mensaje de alerta y redirigir después de 3 segundos
   setTimeout(() => {
     errorlogin.innerHTML = "";
     errorlogin.classList = "";
     location.replace("../index.html");
-  }, 4000);
+  }, 3000);
   isLoggedIn = true;
         }
         break;

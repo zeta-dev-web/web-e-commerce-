@@ -169,21 +169,43 @@ const miCarrito = () => {
   
   if (auth.carshop.length === 0) {
     // Si el arreglo está vacío, muestra un mensaje
-    carritobody.innerHTML = '<h5 class="font-weight-bold">No posee productos agregados.</h5>';
+    carritobody.innerHTML = '<h5 class="font-weight-bold">No posee productos agregados al 🛒</h5>';
   } else {
     // Si el arreglo no está vacío, genera la tabla
-    let tablaHTML = '<table class="table"><thead><tr><th>CANTIDAD</th><th>FOTO</th><th>MARCA</th><th>PRECIO</th></tr></thead><tbody>';
+   // Tu código existente para generar la tabla
+let tablaHTML = '<table class="table"><thead><tr><th class="text-center">CANTIDAD</th><th>FOTO</th><th>MARCA</th><th>PRECIO</th></tr></thead><tbody>';
   
-    auth.carshop.forEach(function (producto) {
-      tablaHTML += '<tr>';
-      tablaHTML += '<td>' + producto.cantidad + '</td>';
-      tablaHTML += '<td><img src="' + producto.imagen + '" alt="modelo" width="50" height="50"></td>';
-      tablaHTML += '<td>' + producto.marca + '</td>';
-      tablaHTML += '<td>' + producto.precio + '</td>';
-      tablaHTML += '</tr>';
-    });
-  
-    tablaHTML += '</tbody></table>';
+auth.carshop.forEach(function (producto, index) {
+  let tablacarrito = `<tr>
+    <td class="text-center">
+      <button class="buttonadd">+</button>
+      ${producto.cantidad}
+      <button class="buttonrem">-</button>
+    </td>
+    <td><img src="${producto.imagen}" alt="modelo" width="50" height="50"></td>
+    <td>${producto.marca}</td>
+    <td>$${producto.precio}</td>
+  </tr>`;
+  tablaHTML += tablacarrito;
+});
+
+// Calcular el total de la columna "PRECIO"
+let totalPrecio = 0;
+auth.carshop.forEach(function (producto) {
+  totalPrecio += parseFloat(producto.precio);
+});
+
+// Redondear el total a cero decimales
+totalPrecio = totalPrecio.toFixed(0);
+
+// Agregar una fila al final de la tabla con el total
+tablaHTML += `<tr>
+  <td></td>
+  <td></td>
+  <td class="text-primary fs-4"><b>Total:</br></td>
+  <td class="text-primary fs-4">$${totalPrecio}</td>
+</tr></tbody></table>`;
+
     
     // Agrega la tabla generada al div con id "carrito-body"
     carritobody.innerHTML = tablaHTML;

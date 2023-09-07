@@ -17,7 +17,7 @@ let isEdit=false,editId
 let closeuser = document.querySelector("#close-sesion"),
 login = document.querySelector("#login"),
 auth = JSON.parse(localStorage.getItem("auth")) || null
-let avatarnav = document.querySelector("#avataruser"),
+let avatarnav = document.querySelector("#avatar"),
 useravatar=document.querySelector("#user-avatar")
 
 //oculto botones al admin master 
