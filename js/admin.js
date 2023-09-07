@@ -84,10 +84,6 @@ window.readInfo = (img, nombre, marca, precio, desc, stock) => {
   document.querySelector("#showPrice").value = precio;
   document.querySelector("#showDesc").value = desc;
   document.querySelector("#showStock").value = stock;
-
-  // Abre el modal correspondiente
-  // const modal = new bootstrap.Modal(document.getElementById('readData'));
-  // modal.show();
 };
 
 window.editInfo=(index,img,nombre,marca,precio,descr,cant)=>{
