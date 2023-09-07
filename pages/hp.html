@@ -2,7 +2,6 @@
 <html lang="es">
 
 <head>
-<meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="description" content="Venta de notebook" />
     <meta name="author" content="LLAM" />
@@ -19,7 +18,7 @@
 
 <body class="d-flex flex-column vh-100 justify-content-between align-items-center color-sec">
     <header class="fixed w-100">
-      <nav class="navbar navbar-expand-lg navbar-dark color">
+        <nav class="navbar navbar-expand-lg navbar-dark color">
             <div class="container-fluid text-center">
                 <a class="navbar-brand" href="../index.html">
                     <img src="../assets/logo 3.png" alt="Logo de L-L-A-M" />
@@ -57,8 +56,8 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-dark color text-center">
                                         <li><a class="dropdown-item" href="../pages/acer.html">Acer</a></li>
-                                        <li><a class="dropdown-item" href="../pages/asus.html">Asus</a></li>
-                                        <li><a class="dropdown-item" href="#">Hp</a></li>
+                                        <li><a class="dropdown-item" href="#">Asus</a></li>
+                                        <li><a class="dropdown-item" href="../pages/hp.html">Hp</a></li>
                                         <li><a class="dropdown-item" href="../pages/msi.html">Msi</a></li>
                                     </ul>
                                 </li>
@@ -81,7 +80,6 @@
         </nav>
     </header>
     <main class="container-fluid justify-content-center align-items-center">
-        
         <div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
             <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3" id="acerCard">
                
@@ -124,7 +122,30 @@
         </section>
     </footer>
     <!-- modal del carrito -->
-  <div
+  <div class="modal fade" id="carritoModal" tabindex="-1" aria-labelledby="carritoModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Mi Carrito 🛒</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div id="carrito-body"
+        class="modal-body d-flex flex-col">
+        <div class="col-4" id="img-up">
+        </div>
+        <div class="col-4 mt-4" id="name-product">
+        </div>
+            </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button id="pay" type="button" class="btn btn-danger">Comprar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+        </div>
+    <!-- Modal -->
+   <div
       class="modal fade"
       id="modal"
       tabindex="-1"
@@ -157,43 +178,7 @@
         </div>
       </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header color texto-color">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">
-                        Suscríbete
-                    </h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="row">
-                            <div class="col-10">
-                                <label for="nombre">Nombre completo:</label>
-                                <input type="text" id="nombre" name="nombre" required placeholder="Carolina Juarez">
-                                <br><br>
-                                <label for="correo">Correo electrónico:</label>
-                                <input type="email" id="correo" name="email" required placeholder="name@example.com">
-                                </label>
-                                <br>
-                                <br>
-                                <div class="d-flex justify-content-end">
-                                    <button class="btn btn-primary btn-form mb-2">
-                                        Enviar
-                                    </button>
-                                </div>
-                                <br>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
-
 <script src="/js/hp.js" type="module"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"

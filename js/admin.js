@@ -88,7 +88,6 @@ window.readInfo = (img, nombre, marca, precio, desc, stock) => {
 
 window.editInfo=(index,img,nombre,marca,precio,descr,cant)=>{
 isEdit=true
-editId=index
 imgurl.value=img
 productName.value=nombre
 brand.value=marca
@@ -97,8 +96,12 @@ desc.value=descr
 stock.value=cant
 
 submitbtn.innerText="Actualizar"
+submitbtn.classList="btn btn-warning"
 modalTitle.innerText="Actualizar el producto"
-}
+document.querySelector(".modal-header").classList="bg-warning modal-header"
+} 
+
+
 
 window.deleteInfo=(index)=>{
     if(confirm("Estas seguro que quieres eliminar el producto?")){
@@ -137,10 +140,13 @@ showInfo()
 const newProduct=()=>{
   isEdit = false
   form.reset()
+  submitbtn.innerText="Guardar"
+  submitbtn.classList="btn btn-dark"
+    modalTitle.innerHTML="Nuevo Producto"
+    document.querySelector(".modal-header").classList="bg-info modal-header"
 }
 let btnNew=document.getElementById("btnNew")
 btnNew.addEventListener("click",newProduct)
-// //probando funcion de menu desplegable
 
 // Función para llenar el menú desplegable
 function fillMobileProductMenu() {
@@ -153,7 +159,6 @@ function fillMobileProductMenu() {
   });
 }
 
-// Manejar la selección del usuario en el menú desplegable
 // Manejar la selección del usuario en el menú desplegable
 document.addEventListener('DOMContentLoaded', function () {
   fillMobileProductMenu();
@@ -174,36 +179,195 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
-
+ submitbtn.addEventListener("click",()=>{
+if (submitbtn.innerText==="Actualizar") { alert("Los datos del producto se han actualizado correctamente");}else{alert("El nuevo producto se ha guardado correctamente")}
+ })
 
 
 //codigo leo z
-// panel de admin de usuarios
+// panel de admin de usuarios --------------------------------------------------------------
 const userModal = new bootstrap.Modal(document.getElementById('userModal'));
  // Obtén los usuarios almacenados en la local storage (asegúrate de que los datos estén almacenados como un arreglo)
   const usuarios = JSON.parse(localStorage.getItem("users")) || [];
-
+const admin = JSON.parse(localStorage.getItem("admin")) 
 // Función para mostrar la lista de usuarios en la tabla
 const showUsers = () => {
    const usuariosTableBody = document.querySelector("#usuarios-data");
   //  const usuariosTableBody2 = document.querySelector("#usuarios-data2");
   // Limpiar la tabla antes de agregar nuevas filas
   usuariosTableBody.innerHTML = '';
+// muestro el admin primero
+    let adminRow = document.createElement("tr");
+adminRow.classList = "d-flex";
 
+let adminCells = `
+    <td class="col-3">${admin.admin}</td>
+    <td class="col-4">${admin.email}</td>
+    <td class="col-2">no posee</td>
+    <td class="col-3"> 
+          <button id="viewButtonAdmin" class="btn btn-success btn-view">
+            <i class="fa fa-eye" aria-hidden="true"></i>
+          </button>
+          <button id="editButtonAdmin" class="btn btn-primary btn-view" id="btn-edit">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </button>
+        </td>
+`;
+
+adminRow.innerHTML = adminCells;
+usuariosTableBody.append(adminRow);
+    
+// Agrega un evento de clic al botón de mostrar
+      const viewButtonAdmin = document.querySelector("#viewButtonAdmin");
+      viewButtonAdmin.addEventListener("click", () => {
+        readAdmin()})
+
+// Agrega un evento de clic al botón editar
+      const editButtonAdmin = document.querySelector("#editButtonAdmin");
+      editButtonAdmin.addEventListener("click", () => {
+        editAdmin();
+      })
+        // funcion para mostrar el admin
+const readAdmin = () => {
+  document.querySelector("#modal-header-user").classList=`modal-header bg-success bg-gradient`
+  document.querySelector("#titulouserModalLabel").innerHTML=`<h5><b>Datos del Admin Master</b>`
+   document.querySelector("#bodyuserModal").innerHTML=`
+<form id="userForm">
+              <div class="mb-3 d-flex justify-content-center">
+                <div
+                  id="avatar"
+                  style="width: 50px; height: 50px; overflow: hidden"
+                >
+                  <img
+                    id="avatarPreview"
+                    src=""
+                    alt="Avatar"
+                    style="max-width: 100%; max-height: 100%"
+                  />
+                </div>
+              </div>
+              <div class="mb-3 d-flex justify-content-center">
+                <label id="nombre" class="form-label">Admin</label>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input
+                  type="pass"
+                  class="form-control"
+                  id="password"
+                  name="password"
+                  required
+                />
+              </div>
+            </form>`
+  document.querySelector("#nombre").innerHTML=`<h5><b>Nombre:</b> ${admin.username}</h5>`;
+  document.querySelector("#email").value=`${admin.email}`;
+  document.querySelector("#password").value=`${admin.pass}`;  
+  // document.querySelector("#codigoSeguridad").innerHTML=`<h5><b>Codigo de Recuperacion:</b> no posee</h5>`;
+  // document.querySelector("#adminstatus").innerHTML=`<h5><b>Admin:</b> Es admin Master</h5>`;   
+  document.querySelector("#avatarPreview").src=admin.avatar;
+  document.querySelector("#btn-guardar").classList="d-none";
+  userModal.show()
+};
+// funcion para editar el admin
+const editAdmin = ()=>{
+   document.querySelector("#modal-header-user").classList=`modal-header bg-success bg-warning`
+  document.querySelector("#btn-guardar").classList="btn btn-primary";
+  document.querySelector("#titulouserModalLabel").innerHTML=`<h5><b>Datos del Admin Master</b>`
+  document.querySelector("#bodyuserModal").innerHTML=`
+<form id="userForm">
+              <div class="mb-3 d-flex justify-content-center">
+                <div
+                  id="avatar"
+                  style="width: 50px; height: 50px; overflow: hidden"
+                >
+                  <img
+                    id="avatarPreview"
+                    src=""
+                    alt="Avatar"
+                    style="max-width: 100%; max-height: 100%"
+                  />
+                </div>
+              </div>
+              <div class="mb-3 d-flex justify-content-center">
+                <label id="nombre" class="form-label">Admin</label>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input
+                  type="pass"
+                  class="form-control"
+                  id="password"
+                  name="password"
+                  required
+                />
+              </div>
+            </form>`
+  document.querySelector("#nombre").value = admin.username;
+  document.querySelector("#email").value = admin.email;
+    document.querySelector("#avatarPreview").src=admin.avatar;
+  document.querySelector("#password").value = admin.pass;
+            userModal.show()
+            // Agrega un evento de clic al botón "Guardar"
+const guardarButtonAdmin = document.querySelector("#btn-guardar");
+guardarButtonAdmin.addEventListener("click", saveAdmin,);
+showUsers();
+}
+
+// Función para editar y guardar el admin
+const saveAdmin = () => {
+if (document.querySelector("#nombre").value = admin.username) {
+   // Actualiza los datos del usuario en el arreglo users
+admin.email = document.querySelector("#email").value;
+admin.pass = document.querySelector("#password").value;
+  // Guarda el arreglo actualizado en la local storage bajo la clave "users"
+  localStorage.setItem("admin", JSON.stringify(admin));
+
+  alert("Los datos del admin se han actualizado correctamente");
+
+  // Cierra el modal
+  userModal.hide();
+
+  // Vuelve a mostrar la lista de usuarios actualizada
+  location.reload() 
+}
+};
+
+// ------------------------ USUARIOS ----------------------
   // Verifica si hay usuarios para mostrar
   if (usuarios.length === 0) {
     // No hay usuarios, muestra un mensaje
     usuariosTableBody.innerHTML = '<tr><td colspan="8">No hay usuarios registrados.</td></tr>';
 
   } else {
-    // Hay usuarios, crea filas para cada usuario
+
+// Hay usuarios, crea filas para cada usuario
     usuarios.map((usuario, index) => {
       let fila = document.createElement("tr");
 fila.classList="d-flex"
       let celdas = `
-        <td class="col-2">${usuario.admin}</td>
-        <td class="col-3">${usuario.email}</td>
-        <td class="col-2">${usuario.pass}</td>
+        <td class="col-3">${usuario.admin}</td>
+        <td class="col-4">${usuario.email}</td>
         <td class="col-2">${usuario.code}</td>
         <td class="col-3"> 
           <button class="btn btn-success btn-view">
@@ -256,46 +420,90 @@ const delUser = (index) => {
 // funcion para mostrar el usuario
 let posicionUsuario = null;
 const readUser = (index) => {
+  document.querySelector("#modal-header-user").classList=`modal-header bg-success bg-gradient`
   document.querySelector("#titulouserModalLabel").innerHTML=`<h5><b>Datos del usuario</b>`
-  document.querySelector("#nombre").innerHTML=`<h5><b>Nombre:</b> ${usuarios[index].username}</h5>`;
-  document.querySelector("#email").innerHTML=`<h5><b>Email:</b> ${usuarios[index].email}</h5>`;
-  document.querySelector("#password").innerHTML=`<h5><b>Password:</b> ${usuarios[index].pass}</h5>`;  
-  document.querySelector("#codigoSeguridad").innerHTML=`<h5><b>Codigo de Recuperacion:</b> ${usuarios[index].code}</h5>`;
-  if (usuarios[index].admin=="false") {
-   document.querySelector("#adminstatus").innerHTML=`<h5><b>Admin:</b> No es Admin</h5>`;   
+  document.querySelector("#bodyuserModal").innerHTML=`
+<form id="userForm">
+              <div class="mb-3">
+                <div
+                  id="avatar"
+                  style="width: 50px; height: 50px; overflow: hidden"
+                >
+                  <img
+                    id="avatarPreview"
+                    src=""
+                    alt="Avatar"
+                    style="max-width: 100%; max-height: 100%"
+                  />
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nombre"
+                  name="nombre"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input
+                  type="pass"
+                  class="form-control"
+                  id="password"
+                  name="password"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="codigoSeguridad" class="form-label"
+                  >Código de Seguridad</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="codigoSeguridad"
+                  name="codigoSeguridad"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+              <label for="admin" class="form-label"
+                  >Estado de Admin</label
+                >
+<input
+                  type="text"
+                  class="form-control"
+                  id="adminstatus"
+                  name="adminstatus"
+                  required
+                />                               
+              </div>
+            </form>`
+  document.querySelector("#nombre").value=`${usuarios[index].username}`;
+  document.querySelector("#email").value=`${usuarios[index].email}`;
+  document.querySelector("#password").value=`${usuarios[index].pass}`;  
+  document.querySelector("#codigoSeguridad").value=`${usuarios[index].code}`;
+  if (usuarios[index].admin==="secundario") {
+   document.querySelector("#adminstatus").value=`secundario`;   
   }
-  else{document.querySelector("#adminstatus").innerHTML=`<h5><b>Admin:</b> Es admin secundario</h5>`;   }
+  else{document.querySelector("#adminstatus").value=`No es Admin`}
   document.querySelector("#avatarPreview").src=usuarios[index].avatar;
   document.querySelector("#btn-guardar").classList="d-none";
   userModal.show()
 };
-
-
-// posible cambio si me da fallas modal de ver mediante menu
-
-// const nombreInput = document.querySelector("#nombre");
-// const emailInput = document.querySelector("#email");
-// const passwordInput = document.querySelector("#password");
-// const codigoInput = document.querySelector("#codigoSeguridad");
-// const adminStatus = document.querySelector("#adminstatus");
-// const avatarPreview = document.querySelector("#avatarPreview");
-// const guardarButton = document.querySelector("#btn-guardar");
-
-// nombreInput.innerHTML = `<h5><b>Nombre:</b> ${usuarios[index].username}`;
-// emailInput.innerHTML = `<h5><b>Email:</b> ${usuarios[index].email}`;
-// passwordInput.innerHTML = `<h5><b>Password:</b> ${usuarios[index].pass}`;
-// codigoInput.innerHTML = `<h5><b>Codigo de Recuperacion:</b> ${usuarios[index].code}`;
-// if (usuarios[index].admin == "false") {
-//   adminStatus.innerHTML = `<h5><b>Admin:</b> No es Admin`;
-// } else {
-//   adminStatus.innerHTML = `<h5><b>Admin:</b> Es admin secundario`;
-// }
-
-// avatarPreview.src = usuarios[index].avatar;
-// guardarButton.classList.add("d-none"); // Ocultar el botón "Guardar Cambios"
-// userModal.show();
-
-
 // funcion para editar el usuario
 const editUser = (index)=>{
   document.querySelector("#btn-guardar").classList="btn btn-primary";
@@ -372,9 +580,16 @@ const editUser = (index)=>{
   document.querySelector("#password").value = usuarios[index].pass;
   document.querySelector("#codigoSeguridad").value = usuarios[index].code;
   document.querySelector("#avatarPreview").src=usuarios[index].avatar;
+const adminStatus = usuarios[index].admin;
+
+// Establece la opción en función del valor de user.admin
+if (adminStatus === "secundario") {
+    document.getElementById("adminstatus").value = "secundario";
+} else if (adminStatus === "false") {
+    document.getElementById("adminstatus").value = "false";
+}
             userModal.show()
             posicionUsuario = index;
-            console.log(`${posicionUsuario}`)
 }
 // Función para editar y guardar el usuario
 const saveUser = () => {
@@ -382,7 +597,7 @@ const saveUser = () => {
   const users = JSON.parse(localStorage.getItem("users")) || [];
 
   // Actualiza los datos del usuario en el arreglo users
-  users[posicionUsuario].username = document.querySelector("#nombre").value;
+users[posicionUsuario].username = document.querySelector("#nombre").value;
 users[posicionUsuario].email = document.querySelector("#email").value;
 users[posicionUsuario].pass = document.querySelector("#password").value;
 users[posicionUsuario].code = document.querySelector("#codigoSeguridad").value;
@@ -402,7 +617,7 @@ users[posicionUsuario].carshop = []
 
 // Agrega un evento de clic al botón "Guardar"
 const guardarButton = document.querySelector("#btn-guardar");
-guardarButton.addEventListener("click", saveUser);
+guardarButton.addEventListener("click", saveUser,);
 showUsers();
 
 // Función para llenar el menú desplegable

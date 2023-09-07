@@ -4,6 +4,7 @@ import { CarShop } from "./clases.js"
 let acerCard=document.getElementById("acerCard")
 let auth = JSON.parse(localStorage.getItem("auth")) || null
 
+
 const cargarCards= ()=>{
     acerCard.innerHTML=""
     let acerProd=productos.filter((producto)=>producto.marca=="hp") 
