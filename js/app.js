@@ -1,4 +1,5 @@
 import { CarShop } from "./clases.js"
+import { crearProductos } from "./productos.js";
 
 //DECLARO VARIABLES
 let auth = JSON.parse(localStorage.getItem("auth")) || null,
@@ -10,10 +11,12 @@ login = document.querySelector("#login"),
 productos = JSON.parse(localStorage.getItem("productos")),
 buttoncart = document.querySelector("#buttoncart"),
 avatarnav2 =document.querySelector("#avatarnav2"),
-avatarnavimg =document.querySelector("#avatarnavimg")
+avatarnavimg =document.querySelector("#avatarnavimg"),
+searchinput = document.querySelector("#searchinput"),
+btnsearch = document.querySelector("#btnsearch")
 
 //SI EL USUARIO ESTA LOGUEADO OCULTO EL PAGE LOGIN Y MUESTRO AVATAR Y BOTON CERRAR SESION
-
+crearProductos()
 if (auth) {
 
   login.innerHTML=`<a id="cerrarSesionLink" class="nav-link" href="./pages/login.html">Cerrar Sesión</a>`
@@ -30,7 +33,7 @@ else{
   avatarnav2.classList="d-none"
 }
 
-if (auth.admin === "master" || auth.admin === "secundario") {
+if (auth && (auth.admin === "master" || auth.admin === "secundario")) {
   document.querySelector("#search").classList="d-none"
 document.querySelector("#buttoncart").classList="d-none"
 document.querySelector("#adminpage").classList="nav-item"
@@ -48,10 +51,14 @@ location.reload()
 }
 
 // agrego funcion a cerrar sesion en dispositivos pequeños
-document.getElementById('cerrarSesionLink').addEventListener("click", function(event) {
-  event.preventDefault();
-    closesesion()
-});
+const cerrarSesionLink = document.getElementById('cerrarSesionLink');
+if (cerrarSesionLink) {
+  // Si el elemento existe, agrega el evento
+  cerrarSesionLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    closesesion();
+  });
+}
 
 //MODAL DEL PERFIL
 let titulobody = document.querySelector("#titulo-body")
@@ -119,40 +126,108 @@ document.getElementById('miPerfilLink').addEventListener("click", function(event
 
 
 //carrito
-
 const carritomodal = new bootstrap.Modal(document.getElementById('carritoModal'))
 
-
-//este codigo debe ir junto con las tarjetas que ejecuta la funcion agregar producto al carrito
-window.agregarCarrito = () => {
-  // Crea un nuevo objeto CarShop
-  const addcarshop = new CarShop(1, 1, "https://www.cordobanotebooks.com.ar/wp-content/uploads/2023/04/NP750XDA-KD1US4.jpg", "LENOVO", 150000);
-
-  // Verifica si el producto ya está en el carrito
-  let productoExistente = null;
-  for (const producto of auth.carshop) {
-    if (producto.id === addcarshop.id) {
-      productoExistente = producto;
-      break; // Detén el bucle si se encuentra una coincidencia
-    }
-  }
-
-  if (productoExistente) {
-    // Si el producto ya está en el carrito, incrementa la cantidad
-    productoExistente.cantidad++;
+const miCarrito = () => {
+  console.log("el carrito si abre")
+  let totalPrecio = 0;
+  let carritobody = document.querySelector("#carrito-body");
+  let auth = JSON.parse(localStorage.getItem("auth"))
+  if (!auth || !auth.carshop || auth.carshop.length === 0){
+    // Si el arreglo está vacío, muestra un mensaje
+    carritobody.innerHTML = '<h5 class="font-weight-bold">No posee productos agregados al 🛒</h5>';
+    carritomodal.show()
   } else {
-    // Si el producto no está en el carrito, agrégalo como nuevo elemento
-    addcarshop.cantidad = 1; // Inicializa la cantidad en 1
-    auth.carshop.push(addcarshop); // Agrega el objeto completo, no solo su cantidad
-  }
+    // Si el arreglo no está vacío, genera la tabla
+   // Función para generar y mostrar la tabla en el modal
+const mostrarTablaEnModal = () => {
+  let tablaHTML = '<table class="table"><thead><tr><th class="text-center">CANTIDAD</th><th>FOTO</th><th>MARCA</th><th>PRECIO</th></tr></thead><tbody>';
 
-  // Actualiza el contenido de auth en la local storage
-  localStorage.setItem('auth', JSON.stringify(auth));
+  auth.carshop.forEach(function (producto, index) {
+    let tablacarrito = `<tr>
+      <td class="text-center">
+        <button class="buttonrem btn btn-sm btn-danger" data-index="${index}">-</button>
+        <span>${producto.cantidad}</span>
+        <button class="buttonadd btn btn-sm btn-success" data-index="${index}">+</button>
+      </td>
+      <td><img src="${producto.imagen}" alt="modelo" width="50" height="50"></td>
+      <td>${producto.marca}</td>
+      <td>$${producto.precio*producto.cantidad}</td>
+    </tr>`;
+    tablaHTML += tablacarrito;
+  });
+
+  // Calcular el total de la columna "PRECIO"
+  let totalPrecio = 0;
+  auth.carshop.forEach(function (producto) {
+    totalPrecio += parseFloat(producto.precio)*(producto.cantidad);
+  });
+
+  // Redondear el total a cero decimales
+  totalPrecio = totalPrecio.toFixed(0);
+
+  // Agregar una fila al final de la tabla con el total
+  tablaHTML += `<tr>
+    <td></td>
+    <td></td>
+    <td class="text-primary fs-4"><b>Total:</br></td>
+    <td class="text-primary fs-4">$${totalPrecio}</td>
+  </tr></tbody></table>`;
+
+  // Agrega la tabla generada al div con id "carrito-body"
+  carritobody.innerHTML = tablaHTML;
+
+  // Obtener todos los botones de incrementar y decrementar cantidad
+  const buttonrem = document.querySelectorAll(".buttonrem");
+  const buttonadd = document.querySelectorAll(".buttonadd");
+  const cantidadSpan = document.querySelectorAll(".text-center span");
+
+  // Agregar eventos a los botones para modificar la cantidad
+  //eliminar
+  buttonrem.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const dataIndex = btn.getAttribute("data-index");
+      if (auth.carshop[dataIndex].cantidad > 1) {
+        auth.carshop[dataIndex].cantidad--;
+        cantidadSpan[dataIndex].textContent = auth.carshop[dataIndex].cantidad;
+        localStorage.setItem('auth', JSON.stringify(auth));
+        // Llama a la función para actualizar la tabla
+        mostrarTablaEnModal();
+      }
+      else {
+      // Si la cantidad es 1, mostrar un alert de confirmación
+      const confirmarEliminar = confirm("¿Seguro que deseas eliminar este producto?");
+      if (confirmarEliminar) {
+        // Elimina el producto del arreglo carshop
+        auth.carshop.splice(dataIndex, 1);
+        localStorage.setItem('auth', JSON.stringify(auth));
+        // Llama a la función para actualizar la tabla
+        mostrarTablaEnModal();
+        miCarrito()
+      }
+    }
+    });
+  });
+  //boton agregar
+  buttonadd.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const dataIndex = btn.getAttribute("data-index");
+      auth.carshop[dataIndex].cantidad++;
+      cantidadSpan[dataIndex].textContent = auth.carshop[dataIndex].cantidad;
+      localStorage.setItem('auth', JSON.stringify(auth));
+      // Llama a la función para actualizar la tabla
+      mostrarTablaEnModal();
+    });
+  });
 };
 
+// Llama a la función para generar y mostrar la tabla en el modal inicialmente
+mostrarTablaEnModal();
 
-// Verifica el contenido de auth.carshop
-console.log(auth.carshop);
+// Abre el modal
+carritomodal.show();
+  }
+};
 
 //abre modal de carrito desde el boton del nav
 buttoncart.addEventListener("click", () => {
@@ -164,37 +239,7 @@ cartfloat.addEventListener("click", () => {
   miCarrito();
 });
 
-const miCarrito = () => {
-  let carritobody = document.querySelector("#carrito-body");
-  
-  if (auth.carshop.length === 0) {
-    // Si el arreglo está vacío, muestra un mensaje
-    carritobody.innerHTML = '<h5 class="font-weight-bold">No posee productos agregados.</h5>';
-  } else {
-    // Si el arreglo no está vacío, genera la tabla
-    let tablaHTML = '<table class="table"><thead><tr><th>CANTIDAD</th><th>FOTO</th><th>MARCA</th><th>PRECIO</th></tr></thead><tbody>';
-  
-    auth.carshop.forEach(function (producto) {
-      tablaHTML += '<tr>';
-      tablaHTML += '<td>' + producto.cantidad + '</td>';
-      tablaHTML += '<td><img src="' + producto.imagen + '" alt="modelo" width="50" height="50"></td>';
-      tablaHTML += '<td>' + producto.marca + '</td>';
-      tablaHTML += '<td>' + producto.precio + '</td>';
-      tablaHTML += '</tr>';
-    });
-  
-    tablaHTML += '</tbody></table>';
-    
-    // Agrega la tabla generada al div con id "carrito-body"
-    carritobody.innerHTML = tablaHTML;
-  }
-
-  carritomodal.show();
-};
-
 // buscador
-let searchinput = document.querySelector("#searchinput")
-let btnsearch = document.querySelector("#btnsearch")
 
 // Agrega un controlador de eventos para el clic en el botón de búsqueda
 btnsearch.addEventListener("click", function(event) {
@@ -206,7 +251,7 @@ btnsearch.addEventListener("click", function(event) {
     // Verifica si la consulta no está vacía
     if (query.trim() !== "") {
         // Redirige a la nueva página y pasa la consulta como parte de la URL
-        window.location.href = `pages/search.html?query=${query}`;
+        window.location.href = `../pages/search.html?query=${query}`;
     } else {
         alert("Por favor, ingrese una consulta válida.");
     }

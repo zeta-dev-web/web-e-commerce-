@@ -5,6 +5,24 @@ let acerCard=document.getElementById("acerCard")
 let auth = JSON.parse(localStorage.getItem("auth")) || null
 let queryString = window.location.search
 
+// buscador
+
+// Agrega un controlador de eventos para el clic en el botón de búsqueda
+btnsearch.addEventListener("click", function(event) {
+    event.preventDefault(); // Evita que el formulario se envíe
+
+    // Obtén el valor del campo de búsqueda
+    const query = searchinput.value;
+
+    // Verifica si la consulta no está vacía
+    if (query.trim() !== "") {
+        // Redirige a la nueva página y pasa la consulta como parte de la URL
+        window.location.href = `/pages/search.html?query=${query}`;
+    } else {
+        alert("Por favor, ingrese una consulta válida.");
+    }
+});
+
 // Función para obtener el valor de un parámetro en la cadena de consulta
 const getQueryParam=(paramName)=> {
     const params = new URLSearchParams(queryString);
@@ -83,30 +101,36 @@ acerCard.append(col)
 
 //este codigo debe ir junto con las tarjetas que ejecuta la funcion agregar producto al carrito
 window.agregarCarrito = (producto) => {
-  // Crea un nuevo objeto CarShop
-  const addcarshop = new CarShop(producto.id, 1, producto.imagen, producto.marca, producto.precio);
+  // Verifica si auth está definido y si tiene la propiedad 'carshop'
+  if (auth && auth.carshop) {
+    // Crea un nuevo objeto CarShop
+    const addcarshop = new CarShop(producto.id, 1, producto.imagen, producto.marca, producto.precio);
 
-  // Verifica si el producto ya está en el carrito
-  let productoExistente = null;
-  for (const productoCarrito of auth.carshop) {
-    if (productoCarrito.id === addcarshop.id) {
-      productoExistente = productoCarrito;
-      break; // Detén el bucle si se encuentra una coincidencia
+    // Verifica si el producto ya está en el carrito
+    let productoExistente = null;
+    for (const productoCarrito of auth.carshop) {
+      if (productoCarrito.id === addcarshop.id) {
+        productoExistente = productoCarrito;
+        break; // Detén el bucle si se encuentra una coincidencia
+      }
     }
-  }
 
- if (productoExistente) {
-    // Si el producto ya está en el carrito, incrementa la cantidad
-    productoExistente.cantidad++;
+    if (productoExistente) {
+      // Si el producto ya está en el carrito, incrementa la cantidad
+      productoExistente.cantidad++;
+    } else {
+      // Si el producto no está en el carrito, agrégalo como nuevo elemento
+      addcarshop.cantidad = 1; // Inicializa la cantidad en 1
+      auth.carshop.push(addcarshop);
+    }
+
+    // Actualiza el contenido de auth en la local storage
+    localStorage.setItem('auth', JSON.stringify(auth));
+    alert('Producto agregado al carrito');
   } else {
-    // Si el producto no está en el carrito, agrégalo como nuevo elemento
-    addcarshop.cantidad = 1; // Inicializa la cantidad en 1
-    auth.carshop.push(addcarshop);
+    // alerta al usuario que debe iniciar sesion
+    alert('Inicie sesion para agregar el producto a su carrito de compra');
   }
-
-  // Actualiza el contenido de auth en la local storage
-  localStorage.setItem('auth', JSON.stringify(auth));
-   alert('Producto agregado al carrito');
 };
 }
 cargarCards()

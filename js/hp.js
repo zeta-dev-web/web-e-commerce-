@@ -4,6 +4,7 @@ import { CarShop } from "./clases.js"
 let acerCard=document.getElementById("acerCard")
 let auth = JSON.parse(localStorage.getItem("auth")) || null
 
+
 const cargarCards= ()=>{
     acerCard.innerHTML=""
     let acerProd=productos.filter((producto)=>producto.marca=="hp") 
@@ -60,35 +61,39 @@ const cargarCards= ()=>{
 acerCard.append(col)
     })  
 
-    const carritomodal = new bootstrap.Modal(document.getElementById('carritoModal'))
-
 
 //este codigo debe ir junto con las tarjetas que ejecuta la funcion agregar producto al carrito
 window.agregarCarrito = (producto) => {
-  // Crea un nuevo objeto CarShop
-  const addcarshop = new CarShop(producto.id, 1, producto.imagen, producto.marca, producto.precio);
+  // Verifica si auth está definido y si tiene la propiedad 'carshop'
+  if (auth && auth.carshop) {
+    // Crea un nuevo objeto CarShop
+    const addcarshop = new CarShop(producto.id, 1, producto.imagen, producto.marca, producto.precio);
 
-  // Verifica si el producto ya está en el carrito
-  let productoExistente = null;
-  for (const productoCarrito of auth.carshop) {
-    if (productoCarrito.id === addcarshop.id) {
-      productoExistente = productoCarrito;
-      break; // Detén el bucle si se encuentra una coincidencia
+    // Verifica si el producto ya está en el carrito
+    let productoExistente = null;
+    for (const productoCarrito of auth.carshop) {
+      if (productoCarrito.id === addcarshop.id) {
+        productoExistente = productoCarrito;
+        break; // Detén el bucle si se encuentra una coincidencia
+      }
     }
-  }
 
- if (productoExistente) {
-    // Si el producto ya está en el carrito, incrementa la cantidad
-    productoExistente.cantidad++;
+    if (productoExistente) {
+      // Si el producto ya está en el carrito, incrementa la cantidad
+      productoExistente.cantidad++;
+    } else {
+      // Si el producto no está en el carrito, agrégalo como nuevo elemento
+      addcarshop.cantidad = 1; // Inicializa la cantidad en 1
+      auth.carshop.push(addcarshop);
+    }
+
+    // Actualiza el contenido de auth en la local storage
+    localStorage.setItem('auth', JSON.stringify(auth));
+    alert('Producto agregado al carrito');
   } else {
-    // Si el producto no está en el carrito, agrégalo como nuevo elemento
-    addcarshop.cantidad = 1; // Inicializa la cantidad en 1
-    auth.carshop.push(addcarshop);
+    // alerta al usuario que debe iniciar sesion
+    alert('Inicie sesion para agregar el producto a su carrito de compra');
   }
-
-  // Actualiza el contenido de auth en la local storage
-  localStorage.setItem('auth', JSON.stringify(auth));
-   alert('Producto agregado al carrito');
 };
 }
 cargarCards()

@@ -754,3 +754,45 @@ table tr td {
 .related h3 {
   font-weight: 900;
 }
+
+/* //botones de carrito// */
+
+.buttonadd {
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 15px;
+  padding: 10px;
+  text-decoration: none;
+  -webkit-border-radius: 28px;
+  -moz-border-radius: 28px;
+  border-radius: 28px;
+  -webkit-box-shadow: 0px 1px 3px #666666;
+  -moz-box-shadow: 0px 1px 3px #666666;
+  box-shadow: 0px 1px 3px #666666;
+  text-shadow: 1px 1px 3px #666666;
+  border: solid #006b00 2px;
+  background: #0fb300;
+}
+.button:hover {
+  background: #00470b;
+}
+
+.buttonrem {
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 15px;
+  padding: 10px;
+  text-decoration: none;
+  -webkit-border-radius: 28px;
+  -moz-border-radius: 28px;
+  border-radius: 28px;
+  -webkit-box-shadow: 0px 1px 3px #666666;
+  -moz-box-shadow: 0px 1px 3px #666666;
+  box-shadow: 0px 1px 3px #666666;
+  text-shadow: 1px 1px 3px #666666;
+  border: solid #8a0000 2px;
+  background: #f50000;
+}
+.button:hover {
+  background: #a80000;
+}
