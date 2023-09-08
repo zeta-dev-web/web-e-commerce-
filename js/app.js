@@ -132,7 +132,7 @@ const miCarrito = () => {
   let totalPrecio = 0;
   let carritobody = document.querySelector("#carrito-body");
   let auth = JSON.parse(localStorage.getItem("auth"))
-  if (auth.carshop.length === 0) {
+  if (!auth || !auth.carshop || auth.carshop.length === 0){
     // Si el arreglo está vacío, muestra un mensaje
     carritobody.innerHTML = '<h5 class="font-weight-bold">No posee productos agregados al 🛒</h5>';
     carritomodal.show()
@@ -250,7 +250,7 @@ btnsearch.addEventListener("click", function(event) {
     // Verifica si la consulta no está vacía
     if (query.trim() !== "") {
         // Redirige a la nueva página y pasa la consulta como parte de la URL
-        window.location.href = `pages/search.html?query=${query}`;
+        window.location.href = `../pages/search.html?query=${query}`;
     } else {
         alert("Por favor, ingrese una consulta válida.");
     }
