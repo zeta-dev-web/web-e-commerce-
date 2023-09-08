@@ -1,4 +1,5 @@
 import { CarShop } from "./clases.js"
+import { crearProductos } from "./productos.js";
 
 //DECLARO VARIABLES
 let auth = JSON.parse(localStorage.getItem("auth")) || null,
@@ -15,7 +16,7 @@ searchinput = document.querySelector("#searchinput"),
 btnsearch = document.querySelector("#btnsearch")
 
 //SI EL USUARIO ESTA LOGUEADO OCULTO EL PAGE LOGIN Y MUESTRO AVATAR Y BOTON CERRAR SESION
-
+crearProductos()
 if (auth) {
 
   login.innerHTML=`<a id="cerrarSesionLink" class="nav-link" href="./pages/login.html">Cerrar Sesión</a>`
