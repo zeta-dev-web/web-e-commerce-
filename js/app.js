@@ -10,7 +10,9 @@ login = document.querySelector("#login"),
 productos = JSON.parse(localStorage.getItem("productos")),
 buttoncart = document.querySelector("#buttoncart"),
 avatarnav2 =document.querySelector("#avatarnav2"),
-avatarnavimg =document.querySelector("#avatarnavimg")
+avatarnavimg =document.querySelector("#avatarnavimg"),
+searchinput = document.querySelector("#searchinput"),
+btnsearch = document.querySelector("#btnsearch")
 
 //SI EL USUARIO ESTA LOGUEADO OCULTO EL PAGE LOGIN Y MUESTRO AVATAR Y BOTON CERRAR SESION
 
@@ -30,7 +32,7 @@ else{
   avatarnav2.classList="d-none"
 }
 
-if (auth.admin === "master" || auth.admin === "secundario") {
+if (auth && (auth.admin === "master" || auth.admin === "secundario")) {
   document.querySelector("#search").classList="d-none"
 document.querySelector("#buttoncart").classList="d-none"
 document.querySelector("#adminpage").classList="nav-item"
@@ -48,10 +50,14 @@ location.reload()
 }
 
 // agrego funcion a cerrar sesion en dispositivos pequeños
-document.getElementById('cerrarSesionLink').addEventListener("click", function(event) {
-  event.preventDefault();
-    closesesion()
-});
+const cerrarSesionLink = document.getElementById('cerrarSesionLink');
+if (cerrarSesionLink) {
+  // Si el elemento existe, agrega el evento
+  cerrarSesionLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    closesesion();
+  });
+}
 
 //MODAL DEL PERFIL
 let titulobody = document.querySelector("#titulo-body")
@@ -233,8 +239,6 @@ cartfloat.addEventListener("click", () => {
 });
 
 // buscador
-let searchinput = document.querySelector("#searchinput")
-let btnsearch = document.querySelector("#btnsearch")
 
 // Agrega un controlador de eventos para el clic en el botón de búsqueda
 btnsearch.addEventListener("click", function(event) {

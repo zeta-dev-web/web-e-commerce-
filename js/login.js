@@ -6,6 +6,7 @@ let logemail = document.querySelector("#logemail"),
   regname = document.querySelector("#regname"),
   regemail = document.querySelector("#regemail"),
   regpass = document.querySelector("#regpass"),
+  regcode = null,
   buttonreg = document.querySelector("#buttonreg"),
   errorlogin = document.querySelector("#contenedor-alert"),
 errorreg = document.querySelector("#contenedor-alert2"),
@@ -170,6 +171,8 @@ const codeModal = new bootstrap.Modal(modalSeg);
 const closeAndRedirect = document.querySelector("#closeAndRedirect")
 
 // REGISTRO DE USUARIO
+
+//generador de codigo de seguridad
 const generateRandomCode = (length) => { // funcion para generar codigo para el restablecimiento de clave
   const characters = '0123456789';
   let code = '';
@@ -250,6 +253,7 @@ const alertHTML = `
     }
     else {
 const registrationCode = generateRandomCode(4); //genero el codigo de recuperacion de clave
+regcode =registrationCode
 
   const user = new User( //creo el usuario dada las condiciones
     regname.value,
@@ -268,10 +272,6 @@ const registrationCode = generateRandomCode(4); //genero el codigo de recuperaci
   // Actualizar el arreglo users con los datos del Local Storage
   users = JSON.parse(localStorage.getItem("users"));
 
-  regname.value = "";
-  regemail.value = "";
-  regpass.value = "";
-
   // Modifica el contenido del modal-body con el mensaje y el código
 const modalBody = modalSeg.querySelector(".modal-body");
 modalBody.innerHTML = `
@@ -282,9 +282,36 @@ modalBody.innerHTML = `
 // Muestra el modal
 codeModal.show();
 }}
+const sendMail = (regcode) => { // Añade registrationCode como argumento
+  console.log("se ejecuta la funcion");
+  const cuerpoCorreo = `<h2><b>👏🏻Bienvenid@ ${regname.value} a StoreNote💻👏🏻</b></h2>
+  <h3>El sitio de ventas de Notebooks más grande de Argentina.</h3><br>
+  <h5>⚠️ Recuerda guardar tu número de seguridad para recuperar tu clave, este es: <b>${regcode}.</b></h5>
+  <p>Si tienes alguna duda o consulta, no dudes en contactarnos a nuestro <a href="https://wa.me/">Whatsapp📲</a> o por nuestras redes.</p>
+`;
+  Email.send({
+    Host: "smtp.elasticemail.com",
+    Username: "storenote@outlook.com",
+    Password: "761632CC0966665953829FBD0F329EEB2DE7",
+    To: regemail.value,
+    From: "storenote@outlook.com",
+    Subject: "Te damos la bienvenida a StoreNote💻",
+    Body: cuerpoCorreo
+  }).then(() => {
+    alert("Usuario registrado con éxito");
+       window.location.href = "./login.html";
+});
+}
+
+
+  regname.value = "";
+  regemail.value = "";
+  regpass.value = "";
 
 closeAndRedirect.addEventListener("click", () => {
-  location.replace("../index.html");
+  // location.replace("../index.html");
+  // codeModal.hide();
+ sendMail(regcode); // Pasa registrationCode como argumento a sendMail
   codeModal.hide();
 });
 // recuperacion de clave
