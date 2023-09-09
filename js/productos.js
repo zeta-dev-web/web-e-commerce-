@@ -77,7 +77,7 @@ const productos = [
     nombre: "hp Pavilion",
     precio: 329367,
     marca: "hp",
-    imagen: "https://th.bing.com/th/id/R.a9c34fb8f2688cb6e2d73085f9310aeb?rik=nboa4bDgfjsVgA&riu=http%3a%2f%2fvaluenomad.com%2fwp-content%2fuploads%2f2018%2f01%2fhp-pavilion-15-cc110na.jpg&ehk=bVzaOB7yQdbw4OZ%2f%2fTtnIgWtp3anoY1SdbNpxNXa2XY%3d&risl=&pid=ImgRaw&r=0",
+    imagen: "https://th.bing.com/th/id/R.de4551897297b37f8dfda42460243d89?rik=t57ePlgychC0Tw&pid=ImgRaw&r=0",
     descripcion: "Procesador Intel Core i5, 8GB de RAM, 256GB de almacenamiento SSD, pantalla de 15.6 pulgadas, tarjeta gráfica NVIDIA GeForce GTX 1650, Windows 10 Home",
     stock: 40
   },
