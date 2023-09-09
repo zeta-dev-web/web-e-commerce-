@@ -66,6 +66,7 @@ acerCard.append(col)
 
 //este codigo debe ir junto con las tarjetas que ejecuta la funcion agregar producto al carrito
 window.agregarCarrito = (producto) => {
+  auth = JSON.parse(localStorage.getItem("auth"))
   // Verifica si auth está definido y si tiene la propiedad 'carshop'
   if (auth && auth.carshop) {
     // Crea un nuevo objeto CarShop

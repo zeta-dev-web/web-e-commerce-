@@ -238,13 +238,16 @@ let cartfloat=document.querySelector("#cartfloat")
 cartfloat.addEventListener("click", () => {
   miCarrito();
 
-  const buttonpay = document.querySelector("#pay")
-      
+});
+//boton comprar del modal
+let buttonpay = document.querySelector("#pay")
        buttonpay.addEventListener("click",()=>{
-        return alert("Producto comprado con éxito")
+        alert("Producto comprado con éxito")
+        auth.carshop=[]
+        localStorage.setItem('auth', JSON.stringify(auth));
+        miCarrito()
       })
 
-});
 
 // buscador
 
