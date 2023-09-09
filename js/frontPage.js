@@ -27,7 +27,7 @@ vendidas.map((producto,index)=>{
 let text1=document.createElement("div")
 text1.classList="text-center px-5 my-2"
 let titu1=document.createElement("h1")
-titu1.classList="badge text-bg-warning text-white fs-5"
+titu1.classList="badge text-bg-primary text-white fs-5"
 titu1.innerText="Las más vendidas"
 let parr1=document.createElement("p")
 parr1.classList="text-center"
@@ -35,8 +35,9 @@ parr1.innerText="Estas son las notebook más vendidas en el mercado, con los mej
 let boton1=document.createElement("div")
 boton1.classList="mt-auto text-center"
 let ancla1=document.createElement("a")
-ancla1.classList="btn btn-warning text-white fs-5 mb-3"
+ancla1.classList="btn btn-primary text-white fs-5 mb-3"
 ancla1.innerText="Más información"
+ancla1.href=`pages/${producto.marca}.html`
 
 
 
@@ -71,7 +72,7 @@ buscadas.map((producto,index)=>{
 let text1=document.createElement("div")
 text1.classList="text-center px-5 my-2"
 let titu1=document.createElement("h1")
-titu1.classList="badge text-bg-warning text-white fs-5"
+titu1.classList="badge text-bg-primary text-white fs-5"
 titu1.innerText="Las más buscadas"
 let parr1=document.createElement("p")
 parr1.classList="text-center"
@@ -79,8 +80,9 @@ parr1.innerText="Estas son las notebook mas buscadas por la gente, con la mejor 
 let boton1=document.createElement("div")
 boton1.classList="mt-auto text-center"
 let ancla1=document.createElement("a")
-ancla1.classList="btn btn-warning text-white fs-5 mb-3"
+ancla1.classList="btn btn-primary text-white fs-5 mb-3"
 ancla1.innerText="Más información"
+ancla1.href=`pages/${producto.marca}.html`
 
 
 
