@@ -70,7 +70,7 @@
 .suscribirse {
   position: fixed;
   bottom: 5.5rem;
-  right: 0;
+  right: 0.5rem;
 }
 .suscribirse img {
   height: 3rem;
@@ -91,7 +91,7 @@
 .cartflot {
   position: fixed;
   bottom: 1rem;
-  left: 0;
+  left: -0.5rem;
   padding: 1rem;
 }
 
