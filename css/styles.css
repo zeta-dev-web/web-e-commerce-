@@ -270,7 +270,7 @@ h6 span {
   position: relative;
   display: block;
   text-align: center;
-  width: 60px;
+  width: 150px;
   height: 16px;
   border-radius: 8px;
   padding: 0;
@@ -283,23 +283,23 @@ h6 span {
 .checkbox:not(:checked) + label:before {
   position: absolute;
   display: block;
-  width: 36px;
+  width: 45px;
   height: 36px;
-  border-radius: 50%;
-  color: #dfe2e6;
+  border-radius: 10%;
+  color: #ffffff;
   background-color: #002b58;
-  content: "\eb4f";
+  content: "👉";
   z-index: 20;
   top: -10px;
   left: -10px;
   line-height: 36px;
   text-align: center;
-  font-size: 24px;
+  font-size: 30px;
   transition: all 0.5s ease;
 }
 
 .checkbox:checked + label:before {
-  transform: translateX(44px) rotate(-270deg);
+  transform: translateX(125px) rotate(-360deg) scaleX(-1);
 }
 
 .card-3d-wrap {
