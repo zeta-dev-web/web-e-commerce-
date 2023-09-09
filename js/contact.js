@@ -19,7 +19,7 @@ const cuerpoMensaje = `<h1>Formulario de Contacto</h1><h5>Nombre:${nombreValor}<
     Host: "smtp.elasticemail.com",
     Username: "storenote@outlook.com",
     Password: "761632CC0966665953829FBD0F329EEB2DE7",
-    To: "testz@yopmail.com",
+    To: "storenote@yopmail.com",
     From: "storenote@outlook.com",
     Subject: "consulta en tienda StoreNote💻",
     Body: cuerpoMensaje
