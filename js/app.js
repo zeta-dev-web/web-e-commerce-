@@ -141,7 +141,7 @@ const miCarrito = () => {
     // Si el arreglo no está vacío, genera la tabla
    // Función para generar y mostrar la tabla en el modal
 const mostrarTablaEnModal = () => {
-  let tablaHTML = '<table class="table"><thead><tr><th class="text-center">CANTIDAD</th><th>FOTO</th><th>MARCA</th><th>PRECIO</th></tr></thead><tbody>';
+  let tablaHTML = '<table class="table"><thead><tr><th class="text-center">CANTIDAD</th><th>FOTO</th><th>NOMBRE</th><th>PRECIO</th></tr></thead><tbody>';
 
   auth.carshop.forEach(function (producto, index) {
     let tablacarrito = `<tr>
@@ -151,7 +151,7 @@ const mostrarTablaEnModal = () => {
         <button class="buttonadd btn btn-sm btn-success" data-index="${index}">+</button>
       </td>
       <td><img src="${producto.imagen}" alt="modelo" width="50" height="50"></td>
-      <td>${producto.marca}</td>
+      <td>${producto.nombre}</td>
       <td>$${producto.precio*producto.cantidad}</td>
     </tr>`;
     tablaHTML += tablacarrito;
@@ -237,6 +237,13 @@ buttoncart.addEventListener("click", () => {
 let cartfloat=document.querySelector("#cartfloat")
 cartfloat.addEventListener("click", () => {
   miCarrito();
+
+  const buttonpay = document.querySelector("#pay")
+      
+       buttonpay.addEventListener("click",()=>{
+        return alert("Producto comprado con éxito")
+      })
+
 });
 
 // buscador

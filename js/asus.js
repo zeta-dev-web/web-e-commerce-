@@ -42,7 +42,7 @@ const cargarCards= ()=>{
         id: producto.id,
         cantidad: 1,
         imagen: producto.imagen,
-        marca: producto.marca,
+        nombre: producto.nombre,
         precio: producto.precio
       };
     cart.addEventListener("click", () => {
@@ -69,7 +69,7 @@ window.agregarCarrito = (producto) => {
   // Verifica si auth está definido y si tiene la propiedad 'carshop'
   if (auth && auth.carshop) {
     // Crea un nuevo objeto CarShop
-    const addcarshop = new CarShop(producto.id, 1, producto.imagen, producto.marca, producto.precio);
+    const addcarshop = new CarShop(producto.id, 1, producto.imagen, producto.nombre, producto.precio);
 
     // Verifica si el producto ya está en el carrito
     let productoExistente = null;
@@ -91,6 +91,7 @@ window.agregarCarrito = (producto) => {
 
     // Actualiza el contenido de auth en la local storage
     localStorage.setItem('auth', JSON.stringify(auth));
+    auth.carshop=[]
     alert('Producto agregado al carrito');
   } else {
     // alerta al usuario que debe iniciar sesion

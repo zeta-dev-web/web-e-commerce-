@@ -27,11 +27,11 @@ this.admin = admin;
     }
 }
 export class CarShop {
-    constructor (id, cantidad, imagen, marca, precio)
+    constructor (id, cantidad, imagen, nombre, precio)
     {this.id= id,
         this.cantidad= cantidad;
 this.imagen = imagen;
-this.marca = marca;
+this.nombre = nombre;
 this.precio = precio;
     }
 }
