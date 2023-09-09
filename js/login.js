@@ -406,11 +406,7 @@ sendMailcode()
         `
     }
 });
-  })
-
-
-
-  
+  })  
 
   const confirmRecoveryButton = document.getElementById("confirmRecovery");
     
