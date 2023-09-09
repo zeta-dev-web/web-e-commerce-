@@ -68,7 +68,7 @@
             </div>
         </nav>
     </header>
-    <main class="d-flex flex-row vh-100 vw-100">
+    <main class="d-flex flex-row vh-100 vw-100 imagemain">
         <div class="section">
             <div class="container">
                 <div class="row justify-content-center my-0">
@@ -96,7 +96,7 @@
                                                 <button id="buttonlogin" class="btn btn-primary mt-4">Iniciar</button>
                                                 <div id="contenedor-alert"></div>
                                                 <p class="mb-0 mt-4 text-center">
-  <button type="button" class="btn btn-link" id="btnrecovery">Olvidaste tu clave?</button>
+  <button type="button" class="btn btn-link text-danger fs-5" id="btnrecovery">Olvidaste tu clave?</button>
 </p>
                                             </div>
                                         </div>
@@ -104,7 +104,7 @@
                                     <div class="card-back">
                                         <div class="center-wrap">
                                             <div class="section text-center">
-                                                <h4 class="mb-4 pb-3">Registrarse</h4>
+                                                <h4 class="mb-1 pb-3 pt-4">Registrarse</h4>
                                                 <div class="form-group">
                                                     <input type="text" name="regname" class="form-style"
                                                         placeholder="Nombre Completo" id="regname" autocomplete="off" required>
@@ -121,8 +121,8 @@
                                                     <i class="input-icon uil uil-lock-alt"></i>
                                                 </div>
                                                 <div class="form-group mt-2">
-    <label for="regavatar">Selecciona tu avatar:</label>
-    <div class="d-flex">
+    <label class="text-primary fs-6" for="regavatar">Selecciona tu avatar:</label>
+    <div class="d-flex justify-content-center">
         <label class="avatar-option">
             <input type="radio" name="avatar" value="https://cdn.icon-icons.com/icons2/1879/PNG/64/iconfinder-3-avatar-2754579_120516.png" />
             <img src="https://cdn.icon-icons.com/icons2/1879/PNG/64/iconfinder-3-avatar-2754579_120516.png" alt="Avatar 1" />
@@ -141,7 +141,7 @@
         </label>
 </div>
 </div>
-                                                <button id="buttonreg" class="btn btn-primary mt-4">Registrarse</button>
+                                                <button id="buttonreg" class="btn btn-primary mt-1 mb-3">Registrarse</button>
                                                 <div id="contenedor-alert2"></div>
                                             </div>
                                         </div>
@@ -187,6 +187,22 @@
             </div>
         </section>
     </footer>
+    <!-- modal para recuperacion de clave -->
+    <div class="modal fade" id="recoverypass" tabindex="-1" aria-labelledby="recoverypasslabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Recuperacion de Contraseña</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div id="modal-body-pass" class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
 <!-- Modal del codigo de seguridad tanto para mostrarlo como para recuperacion de contraseña-->
 <div class="modal fade" id="codeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">

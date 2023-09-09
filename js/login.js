@@ -283,7 +283,7 @@ modalBody.innerHTML = `
 codeModal.show();
 }}
 const sendMail = (regcode) => { // Añade registrationCode como argumento
-  console.log("se ejecuta la funcion");
+  console.log("se ejecuta la funcion email");
   const cuerpoCorreo = `<h2><b>👏🏻Bienvenid@ ${regname.value} a StoreNote💻👏🏻</b></h2>
   <h3>El sitio de ventas de Notebooks más grande de Argentina.</h3><br>
   <h5>⚠️ Recuerda guardar tu número de seguridad para recuperar tu clave, este es: <b>${regcode}.</b></h5>
@@ -316,30 +316,106 @@ closeAndRedirect.addEventListener("click", () => {
 });
 // recuperacion de clave
 // Captura el modal del código de seguridad
-const recoveryModal = new bootstrap.Modal(document.getElementById('codeModal'));
+const recoveryModal = new bootstrap.Modal(document.getElementById('recoverypass'));
 
 // Captura el botón de recuperación
 const btnRecovery = document.getElementById('btnrecovery');
 
 btnRecovery.addEventListener('click', (event) => {
   event.preventDefault();
-
-  const modalBody = modalSeg.querySelector(".modal-body");
-  const passrecoveryLabel = document.querySelector("#exampleModalLabel")
-  passrecoveryLabel.innerHTML=`<b>Recuperacion de Contraseña</b>` 
-  modalBody.innerHTML = `
+  const modalBody = document.querySelector("#modal-body-pass");
+  modalBody.innerHTML =`
     <p>Para recuperar su contraseña, ingrese su email y su código de seguridad proporcionado al registrarse.</p>
-    <input type="email" id="recoveryEmail" placeholder="Email"class="col-7">
-    <input type="text" id="recoveryCode" placeholder="Código" class="col-2">
-    <button type="button" id="confirmRecovery" class="btn btn-primary">Confirmar</button>
+<form>
+  <div class="row g-3 align-items-center">
+    <div class="col-2">
+      <label class="col-form-label">Email</label>
+    </div>
+    <div class="col-10">
+      <input type="text" id="recoveryEmail" class="form-control" aria-describedby="passwordHelpInline">
+    </div>
+  </div>
+<div class="row g-3 align-items-center m-0 pt-1">
+  <div class="col-auto p-0 m-0">
+    <label class="col-form-label">Codigo de Seguridad</label>
+  </div>
+  <div class="col-2 p-0 m-0 ms-2">
+    <input type="text" id="recoveryCode" class="form-control" aria-describedby="passwordHelpInline">
+  </div>
+  </div>
+  <p id="btnreccode" class="btn btn-link text-warning fs-6 d-flex justify-content-center">¿No recuerdas tu codigo de Seguridad?</p>
+<button type="button" id="confirmRecovery" class="btn btn-primary ms-auto d-flex justify-content-start mt-1">Confirmar</button>
+</form>
 `;
 
   recoveryModal.show();
 
-  const confirmRecoveryButton = document.getElementById("confirmRecovery");
+  const recoveryCode = document.getElementById("btnreccode")
+  recoveryCode.addEventListener('click', () => {
+    modalBody.innerHTML = `
+        <p>Ingrese su email actual</p>
+    <div class="row g-3 align-items-center">
+    <div class="col-12">
+      <input type="text" id="emailactual" class="form-control" aria-describedby="passwordHelpInline">
+    </div>
+  </div>
+        <button type="button" id="confirmemail" class="btn btn-primary ms-auto d-flex justify-content-start mt-1">Confirmar</button>
+      `;
+      const confirmemail = document.getElementById("confirmemail")
 
+confirmemail.addEventListener('click', () => {
+    const emailActual = document.getElementById("emailactual").value;
+
+    // Buscar el email en el arreglo users
+    const foundUser = users.find(user => user.email === emailActual);
+
+    if (foundUser) {
+      console.log(`Email encontrado: ${emailActual}`);
+     const userCode = foundUser.code; // Guarda el código en una variable
+      console.log(`Código del usuario: ${userCode}`);
+     //funcion que envia el codigo
+      const sendMailcode= () => { 
+  console.log("se ejecuta la funcion email");
+  const cuerpoCorreo = `<h2><b>Estimad@ Usuario ${emailActual}:</b></h2>
+  <h3>Te recordamos tu codigo de seguridad de StoreNote💻</h3><br>
+  <h3>Con éste podras restablecer tu clave. Tu codigo es: ${userCode}</h3><br>
+  <h5>⚠️ No compartas este código, si no lo solicitaste comunicate con soporte.</b></h5>
+  <p>Si tienes alguna duda o consulta, no dudes en contactarnos a nuestro <a href="https://wa.me/">Whatsapp📲</a> o por nuestras redes.</p>
+`;
+  Email.send({
+    Host: "smtp.elasticemail.com",
+    Username: "storenote@outlook.com",
+    Password: "761632CC0966665953829FBD0F329EEB2DE7",
+    To: emailActual,
+    From: "storenote@outlook.com",
+    Subject: "codigo de Seguridad de StoreNote💻",
+    Body: cuerpoCorreo
+  }).then(() => {
+    // Mostrar mensaje de éxito o hacer alguna otra acción
+        modalBody.innerHTML = `
+          <p>Codigo de Seguridad enviado con éxito!</p>
+        `;
+        console.log(emailActual);
+});
+}
+sendMailcode()
+    } else {
+      console.log(`Email no encontrado: ${emailActual}`);
+      modalBody.innerHTML = `
+          <p>El email ${emailActual} no esta registrado. Verifica el email ingresado o registrate.</p>
+        `
+    }
+});
+  })
+
+
+
+  
+
+  const confirmRecoveryButton = document.getElementById("confirmRecovery");
+    
   confirmRecoveryButton.addEventListener('click', () => {
-    const email = document.getElementById("recoveryEmail").value;
+  const email = document.getElementById("recoveryEmail").value;
     const recoveryCode = document.getElementById("recoveryCode").value;
     
     // Buscar el usuario en el arreglo users
@@ -348,8 +424,12 @@ btnRecovery.addEventListener('click', (event) => {
     if (foundUser) {
       modalBody.innerHTML = `
         <p>Ingrese nueva contraseña</p>
-        <input type="password" id="newPassword" placeholder="Contraseña" class="col-9">
-        <button type="button" id="confirmPass" class="btn btn-primary">Confirmar</button>
+    <div class="row g-3 align-items-center">
+    <div class="col-12">
+      <input type="text" id="newPassword" class="form-control" aria-describedby="passwordHelpInline">
+    </div>
+  </div>
+        <button type="button" id="confirmPass" class="btn btn-primary ms-auto d-flex justify-content-start mt-1">Confirmar</button>
       `;
 
       const confirmPassButton = document.getElementById("confirmPass");
@@ -362,10 +442,30 @@ btnRecovery.addEventListener('click', (event) => {
         // Actualizar el arreglo en localStorage
         localStorage.setItem("users", JSON.stringify(users));
 
-        // Mostrar mensaje de éxito o hacer alguna otra acción
+const sendMailpass = () => { 
+  console.log("se ejecuta la funcion email");
+  const cuerpoCorreo = `<h2><b>Estimad@ Usuario ${email}:</b></h2>
+  <h3>Tu contraseña fue cambiada con éxito en StoreNote💻</h3><br>
+  <h5>⚠️ Si tu no realizaste el cambio, comunicate con soporte.</b></h5>
+  <p>Si tienes alguna duda o consulta, no dudes en contactarnos a nuestro <a href="https://wa.me/">Whatsapp📲</a> o por nuestras redes.</p>
+`;
+  Email.send({
+    Host: "smtp.elasticemail.com",
+    Username: "storenote@outlook.com",
+    Password: "761632CC0966665953829FBD0F329EEB2DE7",
+    To: email,
+    From: "storenote@outlook.com",
+    Subject: "Se cambió tu clave en nuestra tienda StoreNote💻",
+    Body: cuerpoCorreo
+  }).then(() => {
+    // Mostrar mensaje de éxito o hacer alguna otra acción
         modalBody.innerHTML = `
           <p>Contraseña actualizada con éxito!</p>
         `;
+        console.log(email);
+});
+}
+sendMailpass()
       });
     } else {
       // Mostrar mensaje de error

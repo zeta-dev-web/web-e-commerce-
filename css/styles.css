@@ -10,7 +10,6 @@
   font-family: "Open Sans", sans-serif;
 }
 
-
 .titulo {
   color: white;
   text-decoration: none;
@@ -147,7 +146,6 @@ iframe {
 
 .imagemain {
   background: url(/assets/wall-main-contact.webp);
-  /* background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/38816/image-from-rawpixel-id-2042508-jpeg.jpg"); */
   height: 100%;
   width: 100%;
   position: relative;
@@ -249,7 +247,7 @@ h6 span {
   text-transform: uppercase;
   font-size: 20px;
   font-weight: 700;
-  color: #007bff;
+  color: #ffffff;
 }
 
 .section {
@@ -278,7 +276,7 @@ h6 span {
   padding: 0;
   margin: 10px auto;
   cursor: pointer;
-  background-color: #000000;
+  background-color: #ffffff;
 }
 
 .checkbox:checked + label:before,
@@ -289,7 +287,7 @@ h6 span {
   height: 36px;
   border-radius: 50%;
   color: #dfe2e6;
-  background-color: #007bff;
+  background-color: #002b58;
   content: "\eb4f";
   z-index: 20;
   top: -10px;
@@ -330,7 +328,7 @@ h6 span {
 .card-back {
   width: 100%;
   height: 100%;
-  background-color: #dfe2e6;
+  background-color: #ffffff;
   /* background-image: url('/assets/'); */
   background-position: bottom center;
   background-repeat: no-repeat;
