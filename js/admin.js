@@ -204,7 +204,7 @@ adminRow.classList = "d-flex";
 let adminCells = `
     <td class="col-3">${admin.admin}</td>
     <td class="col-4">${admin.email}</td>
-    <td class="col-2">no posee</td>
+    <td class="col-2">Admin Master</td>
     <td class="col-3"> 
           <button id="viewButtonAdmin" class="btn btn-success btn-view">
             <i class="fa fa-eye" aria-hidden="true"></i>
@@ -369,7 +369,7 @@ fila.classList="d-flex"
       let celdas = `
         <td class="col-3">${usuario.admin}</td>
         <td class="col-4">${usuario.email}</td>
-        <td class="col-2">${usuario.code}</td>
+        <td class="col-2">${usuario.username}</td>
         <td class="col-3"> 
           <button class="btn btn-success btn-view">
             <i class="fa fa-eye" aria-hidden="true"></i>
@@ -458,27 +458,6 @@ const readUser = (index) => {
                   required
                 />
               </div>
-              <div class="mb-3">
-                <label for="password" class="form-label">Contraseña</label>
-                <input
-                  type="pass"
-                  class="form-control"
-                  id="password"
-                  name="password"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="codigoSeguridad" class="form-label"
-                  >Código de Seguridad</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="codigoSeguridad"
-                  name="codigoSeguridad"
-                  required
-                />
               </div>
               <div class="mb-3">
               <label for="admin" class="form-label"
@@ -495,8 +474,6 @@ const readUser = (index) => {
             </form>`
   document.querySelector("#nombre").value=`${usuarios[index].username}`;
   document.querySelector("#email").value=`${usuarios[index].email}`;
-  document.querySelector("#password").value=`${usuarios[index].pass}`;  
-  document.querySelector("#codigoSeguridad").value=`${usuarios[index].code}`;
   if (usuarios[index].admin==="secundario") {
    document.querySelector("#adminstatus").value=`secundario`;   
   }
@@ -545,28 +522,6 @@ const editUser = (index)=>{
                 />
               </div>
               <div class="mb-3">
-                <label for="password" class="form-label">Contraseña</label>
-                <input
-                  type="pass"
-                  class="form-control"
-                  id="password"
-                  name="password"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="codigoSeguridad" class="form-label"
-                  >Código de Seguridad</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="codigoSeguridad"
-                  name="codigoSeguridad"
-                  required
-                />
-              </div>
-              <div class="mb-3">
               <label for="admin" class="form-label"
                   >Estado de Admin</label
                 >
@@ -578,15 +533,13 @@ const editUser = (index)=>{
             </form>`
   document.querySelector("#nombre").value = usuarios[index].username;
   document.querySelector("#email").value = usuarios[index].email;
-  document.querySelector("#password").value = usuarios[index].pass;
-  document.querySelector("#codigoSeguridad").value = usuarios[index].code;
   document.querySelector("#avatarPreview").src=usuarios[index].avatar;
 const adminStatus = usuarios[index].admin;
 
 // Establece la opción en función del valor de user.admin
-if (adminStatus === "secundario") {
+if (adminStatus == "secundario") {
     document.getElementById("adminstatus").value = "secundario";
-} else if (adminStatus === "false") {
+} else if (adminStatus === "false" || adminStatus === false) {
     document.getElementById("adminstatus").value = "false";
 }
             userModal.show()
@@ -600,8 +553,6 @@ const saveUser = () => {
   // Actualiza los datos del usuario en el arreglo users
 users[posicionUsuario].username = document.querySelector("#nombre").value;
 users[posicionUsuario].email = document.querySelector("#email").value;
-users[posicionUsuario].pass = document.querySelector("#password").value;
-users[posicionUsuario].code = document.querySelector("#codigoSeguridad").value;
 users[posicionUsuario].admin = document.querySelector("#adminstatus").value;
 users[posicionUsuario].carshop = []
   // Guarda el arreglo actualizado en la local storage bajo la clave "users"
