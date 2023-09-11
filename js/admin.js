@@ -88,6 +88,7 @@ window.readInfo = (img, nombre, marca, precio, desc, stock) => {
 
 window.editInfo=(index,img,nombre,marca,precio,descr,cant)=>{
 isEdit=true
+editId=index
 imgurl.value=img
 productName.value=nombre
 brand.value=marca
