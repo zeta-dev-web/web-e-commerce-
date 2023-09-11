@@ -145,5 +145,9 @@ const productos = [
     stock: 8
   }
 ];
-localStorage.setItem("productos", JSON.stringify(productos))
-console.log(productos);}
+if (!localStorage.getItem("productos")) {
+localStorage.setItem("productos", JSON.stringify(productos))  
+}
+}
+
+

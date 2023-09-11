@@ -263,9 +263,6 @@ regcode =registrationCode
     registrationCode,
   );
 
-  console.log(users);
-  console.log(user);
-
   users.push(user);
   localStorage.setItem("users", JSON.stringify(users)); //actualizo la local Storage
 
@@ -283,7 +280,6 @@ modalBody.innerHTML = `
 codeModal.show();
 }}
 const sendMail = (regcode) => { // Añade registrationCode como argumento
-  console.log("se ejecuta la funcion email");
   const cuerpoCorreo = `<h2><b>👏🏻Bienvenid@ ${regname.value} a StoreNote💻👏🏻</b></h2>
   <h3>El sitio de ventas de Notebooks más grande de Argentina.</h3><br>
   <h5>⚠️ Recuerda guardar tu número de seguridad para recuperar tu clave, este es: <b>${regcode}.</b></h5>
@@ -370,12 +366,7 @@ confirmemail.addEventListener('click', () => {
     const foundUser = users.find(user => user.email === emailActual);
 
     if (foundUser) {
-      console.log(`Email encontrado: ${emailActual}`);
-     const userCode = foundUser.code; // Guarda el código en una variable
-      console.log(`Código del usuario: ${userCode}`);
-     //funcion que envia el codigo
       const sendMailcode= () => { 
-  console.log("se ejecuta la funcion email");
   const cuerpoCorreo = `<h2><b>Estimad@ Usuario ${emailActual}:</b></h2>
   <h3>Te recordamos tu codigo de seguridad de StoreNote💻</h3><br>
   <h3>Con éste podras restablecer tu clave. Tu codigo es: ${userCode}</h3><br>

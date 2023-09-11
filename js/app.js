@@ -84,8 +84,6 @@ savechange.addEventListener("click", function () {
   // Realiza la búsqueda y modificación del usuario aquí
   for (const user of users) {
     if (user.email === auth.email) {
-      console.log('Email encontrado:', user.email);
-
       // Modifica los valores del usuario
       user.email = inputemail.value;
       user.pass = inputPassword.value;
