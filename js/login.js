@@ -386,12 +386,10 @@ confirmemail.addEventListener('click', () => {
         modalBody.innerHTML = `
           <p>Codigo de Seguridad enviado con éxito!</p>
         `;
-        console.log(emailActual);
 });
 }
 sendMailcode()
     } else {
-      console.log(`Email no encontrado: ${emailActual}`);
       modalBody.innerHTML = `
           <p>El email ${emailActual} no esta registrado. Verifica el email ingresado o registrate.</p>
         `
@@ -430,7 +428,6 @@ sendMailcode()
         localStorage.setItem("users", JSON.stringify(users));
 
 const sendMailpass = () => { 
-  console.log("se ejecuta la funcion email");
   const cuerpoCorreo = `<h2><b>Estimad@ Usuario ${email}:</b></h2>
   <h3>Tu contraseña fue cambiada con éxito en StoreNote💻</h3><br>
   <h5>⚠️ Si tu no realizaste el cambio, comunicate con soporte.</b></h5>
@@ -449,7 +446,6 @@ const sendMailpass = () => {
         modalBody.innerHTML = `
           <p>Contraseña actualizada con éxito!</p>
         `;
-        console.log(email);
 });
 }
 sendMailpass()

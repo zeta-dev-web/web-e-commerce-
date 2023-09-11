@@ -15,10 +15,10 @@ avatarnavimg =document.querySelector("#avatarnavimg"),
 searchinput = document.querySelector("#searchinput"),
 btnsearch = document.querySelector("#btnsearch")
 
-//SI EL USUARIO ESTA LOGUEADO OCULTO EL PAGE LOGIN Y MUESTRO AVATAR Y BOTON CERRAR SESION
+// creo productos demo
 crearProductos()
+//SI EL USUARIO ESTA LOGUEADO OCULTO EL PAGE LOGIN Y MUESTRO AVATAR Y BOTON CERRAR SESION
 if (auth) {
-
   login.innerHTML=`<a id="cerrarSesionLink" class="nav-link" href="./pages/login.html">Cerrar Sesión</a>`
   login.classList=`d-xl-none d-lg-none`
   avatar.src = auth.avatar
@@ -77,30 +77,67 @@ const miPerfil = () => {
   perfilmodal.show();
 };
 
-// Agrega un evento de clic al botón
 savechange.addEventListener("click", function () {
-  let inputemail = document.querySelector("#inputEmail")
-  let inputPassword = document.querySelector("#inputPassword")
+  let inputemail = document.querySelector("#inputEmail");
+  let inputPassword = document.querySelector("#inputPassword");
+  
+  // Verificar si el email y la contraseña se ingresaron
+  const newEmail = inputemail.value.trim();
+  const newPassword = inputPassword.value.trim();
+
+  if (!newEmail && !newPassword) {
+    alert("Por favor, complete al menos uno de los campos antes de guardar los cambios.");
+    return; // Detener la ejecución si ambos campos están vacíos
+  }
+  
+  // Preguntar al usuario si está seguro de guardar los cambios
+  if (!confirm("¿Está seguro de que desea guardar los cambios?")) {
+    return; // Detener la ejecución si el usuario cancela
+  }
+  
   // Realiza la búsqueda y modificación del usuario aquí
   for (const user of users) {
     if (user.email === auth.email) {
-      // Modifica los valores del usuario
-      user.email = inputemail.value;
-      user.pass = inputPassword.value;
+      // Modificar el email si se ingresó uno nuevo
+      if (newEmail) {
+        user.email = newEmail;
+      }
+      
+      // Modificar la contraseña si se ingresó una nueva
+      if (newPassword) {
+        user.pass = newPassword;}
 
-      // Guarda los cambios en localStorage si es necesario
+      // Guardar los cambios en localStorage si es necesario
       localStorage.setItem("users", JSON.stringify(users));
-
+const sendMailchange= () => {       
+const cuerpoCorreo = `<h2><b>Estimad@ Usuario ${user.email}:</b></h2>
+  <h3>Los cambios en tu cuenta (email o contraseña) se realizaron con éxito en StoreNote💻</h3><br>
+  <h5>⚠️ Si tu no realizaste el cambio, comunicate con soporte.</b></h5>
+  <p>Si tienes alguna duda o consulta, no dudes en contactarnos a nuestro <a href="https://wa.me/">Whatsapp📲</a> o por nuestras redes.</p>
+`;
+  Email.send({
+    Host: "smtp.elasticemail.com",
+    Username: "storenote@outlook.com",
+    Password: "761632CC0966665953829FBD0F329EEB2DE7",
+    To: user.email,
+    From: "storenote@outlook.com",
+    Subject: "Se cambiaron datos en nuestra tienda StoreNote💻",
+    Body: cuerpoCorreo
+  }).then(() => {
+    // Mostrar mensaje de éxito o hacer alguna otra acción
+ console.log("email enviado");
+ console.log(user.email);
+    closesesion();
+});
+}
+sendMailchange()
       // Cierra el modal después de guardar los cambios
-     
+      perfilmodal.hide();
 
       // Puedes detener el bucle si encontraste una coincidencia
-      break;
+      // break;
     }
-    perfilmodal.hide();
-    
   }
-  closesesion()
 });
 
 //Abre modal de perfil
@@ -127,7 +164,6 @@ document.getElementById('miPerfilLink').addEventListener("click", function(event
 const carritomodal = new bootstrap.Modal(document.getElementById('carritoModal'))
 
 const miCarrito = () => {
-  console.log("el carrito si abre")
   let totalPrecio = 0;
   let carritobody = document.querySelector("#carrito-body");
   let auth = JSON.parse(localStorage.getItem("auth"))
