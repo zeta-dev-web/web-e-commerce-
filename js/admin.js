@@ -133,6 +133,9 @@ form.addEventListener("submit",(e)=>{
     localStorage.setItem("productos", JSON.stringify(productos))
     submitbtn.innerText="Guardar"
     modalTitle.innerHTML="Rellena el formulario"
+    alert("Los datos del producto se han guardado correctamente")
+    location.reload()
+
 showInfo()
     form.reset()
     modal.style.display="none"
@@ -180,9 +183,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
- submitbtn.addEventListener("click",()=>{
-if (submitbtn.innerText==="Actualizar") { alert("Los datos del producto se han actualizado correctamente");}else{alert("El nuevo producto se ha guardado correctamente")}
- })
 
 
 //codigo leo z
