@@ -9,15 +9,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="./assets/favicon.png" type="favicon/png" />
     <title>Store NOTE 💻</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
     <link rel="stylesheet" href="/css/styles.css" />
 </head>
-<body class="color-sec p-0 m-0 vh-100 d-flex row justify-content-between">
-    <header class="fixed container p-0">
+<body class="color-sec p-0 m-0 d-flex justify-content-between row vh-100">
+    <header class="fixed w-100 container-fluid p-0">
         <nav class="navbar navbar-expand-lg navbar-dark color">
             <div class="container-fluid text-center">
-                 <a class="navbar-brand" href="../index.html">
+                <a class="navbar-brand" href="../index.html">
                     <img src="../assets/logo 3.png" alt="Logo de STORE" />
                 </a>
                 <div class="d-sm-block d-lg-none">
@@ -47,7 +47,7 @@
                             <a class="nav-link" href="./contact.html">Contactarse</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Acerca de Nosotros</a>
+                            <a class="nav-link" href="./about.html">Acerca de Nosotros</a>
                         </li>
                         <div class="collapse navbar-collapse d-block" id="navbarNavDarkDropdown">
                             <ul class="navbar-nav">
@@ -92,88 +92,39 @@
             </div>
         </nav>
     </header>
-        <main class="container-fluid px-0 mb-3">
-            <!-- informacion de la empresa -->
-            <div class="container mt-5 ">
-    <div class="card">
-        <div class="card-body">
-            <h3 class="card-title">Store NOTE 💻</h3>
-            <p class="card-text">
-                <h5 class="fs-5"><b>Store Note es la empresa líder en Argentina en la venta de notebooks.</b></h5><p class="fs-6">Fundada en 2010, hemos estado proporcionando a nuestros clientes la última tecnología en computadoras portátiles desde entonces.</p>
-
-                <p class="fs-6">Nuestra visión es expandirnos en todo el país y ofrecer la mejor experiencia de compra en línea. Para lograrlo, estamos implementando los siguientes planes de expansión y mejoras:</p>
-                <p class="fs-6"><b class="text-danger">1° Ampliación de Catálogo: </b>Continuaremos ampliando nuestra gama de productos para ofrecer una selección aún más amplia de notebooks de alta calidad a precios competitivos.</p>
-                <p class="fs-6"><b class="text-danger">2° Mejora en la Experiencia del Usuario:</b>Estamos trabajando en una nueva plataforma web que brindará una navegación más fácil y una experiencia de compra más intuitiva.</p>
-                <p class="fs-6"><b class="text-danger">3° Entrega Rápida y Segura:</b>Estamos fortaleciendo nuestra red de logística para garantizar entregas rápidas y seguras en todo el país.</p>
-                <p class="fs-6"><b class="text-danger">4 Innovación Tecnológica:</b>Siempre estamos atentos a las últimas tendencias tecnológicas. Estamos explorando nuevas tecnologías, como laptops con energía solar y laptops plegables, para mantenernos a la vanguardia de la industria.</p>
-                <p class="fs-6">Nuestras fortalezas incluyen un equipo dedicado, productos de calidad, atención al cliente excepcional y una sólida presencia en el mercado. Estamos comprometidos a brindar a nuestros clientes las mejores soluciones informáticas y esperamos seguir creciendo y sirviendo a la comunidad argentina.</p>
-
-                <p class="fs-5"><b class="text-primary">¡Gracias por ser parte de la familia Store NOTE 💻!</b></p>
-            </p>
+    <main class="container-fluid justify-content-center align-items-center">
+        <div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
+            <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3" id="acerCard">
+            </div>
         </div>
-    </div>
-</div>
-<div class="container mt-2"><h3 class="text-danger">Conoce nuestro Equipo:</h3></div>
-      <!-- tarjetas de presentacion -->
-      <div class="row row-cols-1 row-cols-md-4 g-4 container-fluid justify-content-center align-items-center">
-  <div class="col">
-    <div class="card h-100 d-flex align-items-center">
-      <img src="/assets/perfil (2).jpeg" class="card-img img-fluid" alt="...">
-      <div class="card-body">
-        <h3 class="card-title text-center"><b>Leonel Sanagua</b></h3>
-        <p class="card-text fs-5">Co-fundador y Desarrollador Web Full-stack.</p>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card h-100 d-flex align-items-center">
-      <img src="/assets/perfil (3).jpeg" class="card-img img-fluid" alt="...">
-      <div class="card-body">
-<h3 class="card-title text-center"><b>Franco Garcia</b></h3>
-        <p class="card-text fs-5">Co-fundador y Desarrollador Web Full-stack.</p>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card h-100 d-flex align-items-center">
-      <img src="/assets/perfil (1).jpeg" class="card-img img-fluid" alt="...">
-      <div class="card-body">
-<h3 class="card-title text-center"><b>Leonardo Zamorano</b></h3>
-        <p class="card-text fs-5">Co-fundador y Desarrollador Web Full-stack.</p>
-      </div>
-    </div>
-  </div>
-  </div>
-<!-- -------------------- -->
-<div class="container-fluid">
-<div class="px-0 suscribirse" data-bs-toggle="modal" data-bs-target="#modal">
-                <img src="/assets/suscribirse.png" alt="logo store" />
+        </section>
+            <div class="px-0 suscribirse" data-bs-toggle="modal" data-bs-target="#modal">
+                <img src="../assets/suscribirse.png" alt="logo store" />
             </div>
             <div class="wsp">
                 <a href="https://wa.me/" target="_blank">
-                    <img src="/assets/wsp.png" alt="logo store" />
+                    <img src="../assets/wsp.png" alt="logo store" />
                 </a>
             </div>
              <div class="d-block d-md-block d-sm-none d-lg-none cartflot p-0 pe-6">
-                <img id="cartfloat" src="/assets/shopping-cart.png" alt="icono-cart">
+                <img id="cartfloat" src="../assets/shopping-cart.png" alt="icono-cart">
             </div>
-            </div>
+        </section>
     </main>
-      <footer class="footer-container container-fluid color d-flex flex-column justify-content-between ">
+    <footer class="container-fluid color d-flex flex-column justify-content-between ">
         <section class="h-100 row py-2 flex-column flex-md-row align-items-md-center">
-            <div class="col logo-footer text-center mb-3 logo-footer">
+<div class="col logo-footer text-center mb-3 logo-footer">
                 <img src="/assets/logo 3.png" alt="logo" />
                 <br><small class="text-white">Store NOTE 💻&copy; 2023</small>
             </div>
             <div class="col text-white text-center align-items-around d-none d-md-block">
-                <a href="/pages/error404.html" target="_blank"><i class="fa fa-instagram fa-2x px-3 text-white"
-                        aria-hidden="true"></i> </a>
-                <a href="/pages/error404.html" target="_blank"><i class="fa fa-facebook-official fa-2x px-3 text-white"
+                <a href="#" target="_blank"><i class="fa fa-instagram fa-2x px-3 text-white" aria-hidden="true"></i>
+                </a>
+                <a href="#" target="_blank"><i class="fa fa-facebook-official fa-2x px-3 text-white"
                         aria-hidden="true"></i></a>
-                <a href="/pages/error404.html" target="_blank"><i class="fa fa-youtube-play fa-2x px-3 text-white"
+                <a href="#" target="_blank"><i class="fa fa-youtube-play fa-2x px-3 text-white"
                         aria-hidden="true"></i></a>
-                <a href="/pages/error404.html" target="_blank"><i class="fa fa-twitter fa-2x px-3 text-white"
-                        aria-hidden="true"></i></a>
+                <a href="#" target="_blank"><i class="fa fa-twitter fa-2x px-3 text-white" aria-hidden="true"></i></a>
             </div>
             <div class="col text-center d-none d-lg-block">
                 <iframe
@@ -184,36 +135,7 @@
             </div>
         </section>
     </footer>
-    <!-- Modal user -->
-<div class="modal fade" id="perfilModal" tabindex="-1" aria-labelledby="perfilModal" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="tituloModal">Mi Perfil </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div id="perfil-body"
-        class="modal-body">
-        <div> 
-            <div id="titulo-body">
-        </div>
-            <br></br>
-            <div id="change-email">
-            </div>
-            <label for="input" class="form-label">Ingrese el nuevo Email: </label>
-            <input type="email" id="inputEmail" class="form-control">
-            <label for="input" class="form-label">Ingrese su nueva contraseña: </label>
-            <input type="email" id="inputPassword" class="form-control">
-            </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button id="savechange" type="button" class="btn btn-primary">Guardar Cambios</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- modal del carrito -->
+    <!-- modal del carrito -->
   <div class="modal fade" id="carritoModal" tabindex="-1" aria-labelledby="carritoModal" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -270,11 +192,13 @@
         </div>
       </div>
     </div>
-    <!-- scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
-    <script src="https://use.fontawesome.com/c2813ccf5b.js"></script>
-    <script type="module" src="/js/app.js"></script>    
+    <script type="module" src="/js/app.js"></script>  
+<script src="/js/search.js" type="module"></script>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+<script src="https://use.fontawesome.com/c2813ccf5b.js"></script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
 </html>
