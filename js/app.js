@@ -275,14 +275,20 @@ cartfloat.addEventListener("click", () => {
 });
 //boton comprar del modal
 let buttonpay = document.querySelector("#pay")
-       buttonpay.addEventListener("click",()=>{
-        alert("Producto comprado con éxito")
-        auth.carshop=[]
-        localStorage.setItem('auth', JSON.stringify(auth));
-        miCarrito()
-      })
-
-
+buttonpay.addEventListener("click", () => {
+  if (!auth) {
+    alert("Inicie sesión para comprar");
+  } else {
+    if (JSON.parse(localStorage.getItem('auth')).carshop.length > 0) {
+      alert("Producto comprado con éxito");
+      auth.carshop = [];
+      localStorage.setItem('auth', JSON.stringify(auth));
+      miCarrito();
+    } else {
+      alert("No posee productos para comprar");
+    }
+  }
+});
 // buscador
 
 // Agrega un controlador de eventos para el clic en el botón de búsqueda
