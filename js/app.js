@@ -125,8 +125,6 @@ const cuerpoCorreo = `<h2><b>Estimad@ Usuario ${user.email}:</b></h2>
     Body: cuerpoCorreo
   }).then(() => {
     // Mostrar mensaje de éxito o hacer alguna otra acción
- console.log("email enviado");
- console.log(user.email);
     closesesion();
 });
 }
